@@ -545,6 +545,18 @@ const peaceMessages = [
         message: "Paz",
         direction: "ltor",
         displayMessage: true
+    },
+    {
+        language: "Japanese",
+        message: "\u5E73\u548C",
+        direction: "ttob",
+        displayMessage: true
+    },
+    {
+        language: "Arabic",
+        message: "\u0633\u0644\u0627\u0645",
+        direction: "rtol",
+        displayMessage: true
     }, 
 ];
 class PeacePanel extends (0, _lit.LitElement) {
@@ -645,7 +657,9 @@ peaceMessages.forEach((message)=>{
     newPeacePanel.messageDetails = message;
     console.log("in setting up");
     console.log(newPeacePanel.messageDetails);
-    document.querySelector(".banner-holder").appendChild(newPeacePanel);
+    if (message.direction === "ttob") document.querySelector(".banner-ttob").appendChild(newPeacePanel);
+    if (message.direction === "rtol") document.querySelector(".banner-rtol").appendChild(newPeacePanel);
+    if (message.direction === "ltor") document.querySelector(".banner-ltor").appendChild(newPeacePanel);
 });
 
 },{"lit":"4antt"}],"4antt":[function(require,module,exports) {

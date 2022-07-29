@@ -13,6 +13,18 @@ const peaceMessages = [
     direction: "ltor",
     displayMessage: true,
   },
+  {
+    language: "Japanese",
+    message: "平和",
+    direction: "ttob",
+    displayMessage: true,
+  },
+  {
+    language: "Arabic",
+    message: "سلام",
+    direction: "rtol",
+    displayMessage: true,
+  },
 ];
 
 class PeacePanel extends LitElement {
@@ -127,5 +139,13 @@ peaceMessages.forEach((message) => {
   newPeacePanel.messageDetails = message;
   console.log("in setting up");
   console.log(newPeacePanel.messageDetails);
-  document.querySelector(".banner-holder").appendChild(newPeacePanel);
+  if (message.direction === "ttob") {
+    document.querySelector(".banner-ttob").appendChild(newPeacePanel);
+  }
+  if (message.direction === "rtol") {
+    document.querySelector(".banner-rtol").appendChild(newPeacePanel);
+  }
+  if (message.direction === "ltor") {
+    document.querySelector(".banner-ltor").appendChild(newPeacePanel);
+  }
 });
