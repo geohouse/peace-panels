@@ -600,9 +600,11 @@ class PeacePanel extends (0, _lit.LitElement) {
     // Toggle whether the displayMessage property is set to true/false.
     toggleMessage() {
         console.log("in toggle");
-    //console.log(this.messageDetails);
-    //this.messageDetails.displayMessage != this.messageDetails.displayMessage;
-    //this.requestUpdate();
+        //console.log(this.messageDetails);
+        // Toggle the boolean and re-assign
+        this.messageDetails.displayMessage = !this.messageDetails.displayMessage;
+        console.log(this.messageDetails.displayMessage);
+        this.requestUpdate();
     }
 }
 customElements.define("peace-panel", PeacePanel);

@@ -71,8 +71,11 @@ class PeacePanel extends LitElement {
   toggleMessage() {
     console.log("in toggle");
     //console.log(this.messageDetails);
-    //this.messageDetails.displayMessage != this.messageDetails.displayMessage;
-    //this.requestUpdate();
+    // Toggle the boolean and re-assign
+
+    this.messageDetails.displayMessage = !this.messageDetails.displayMessage;
+    console.log(this.messageDetails.displayMessage);
+    this.requestUpdate();
   }
 }
 
