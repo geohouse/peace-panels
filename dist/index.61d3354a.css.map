@@ -1,0 +1,1 @@
+{"mappings":"AAAA;;;;AAIA","sources":["src/index.css"],"sourcesContent":["body {\r\n  color: red;\r\n}\r\n\r\npeace-panel {\r\n  height: 100px;\r\n  width: 300px;\r\n  color: black;\r\n}\r\n"],"names":[],"version":3,"file":"index.61d3354a.css.map","sourceRoot":"/__parcel_source_root/"}
