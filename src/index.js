@@ -32,8 +32,8 @@ class PeacePanel extends LitElement {
       color: rebeccapurple;
     }
     p {
-      color: black;
-      height: 100px;
+      color: hotpink;
+      height: 30px;
       width: 300px;
     }
   `;
@@ -50,8 +50,8 @@ class PeacePanel extends LitElement {
   render() {
     console.log("in render");
     console.log(this);
-    html`<p>Testing</p>`;
-    // html`
+    return html`<p>Testing</p>`;
+    // return(html`
     //   <p
     //     class=${this.messageDetails.displayMessage ? "message" : "language"}
     //     @click=${() => this.toggleMessage()}
@@ -60,7 +60,7 @@ class PeacePanel extends LitElement {
     //       ? this.messageDetails.message
     //       : this.messageDetails.language}
     //   </p>
-    // `;
+    // `)
   }
 
   // Toggle whether the displayMessage property is set to true/false.
@@ -74,8 +74,45 @@ class PeacePanel extends LitElement {
 
 customElements.define("peace-panel", PeacePanel);
 
+// class TesterTester extends LitElement {
+//   render() {
+//     html`<p>TESTING here</p>`;
+//   }
+// }
+
+// customElements.define("tester-tester", TesterTester);
+
+// export class SimpleGreeting extends LitElement {
+//   static styles = css`
+//     p {
+//       color: blue;
+//     }
+//   `;
+
+//   static properties = {
+//     name: { type: String },
+//   };
+
+//   constructor() {
+//     super();
+
+//     this.name = "Somebody";
+//   }
+
+//   render() {
+//     return html`<p>Hello, ${this.name}!</p>`;
+//   }
+// }
+
+// customElements.define("simple-greeting", SimpleGreeting);
+
+// peaceMessages.forEach((message) => {
+//   const newElement = document.createElement("simple-greeting");
+//   document.querySelector(".banner-holder").appendChild(newElement);
+// });
+
 peaceMessages.forEach((message) => {
   console.log(message);
-  const peacePanel = new PeacePanel(message);
-  document.querySelector(".banner-holder").appendChild(peacePanel);
+  const newPeacePanel = document.createElement("peace-panel");
+  document.querySelector(".banner-holder").appendChild(newPeacePanel);
 });
