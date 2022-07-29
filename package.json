@@ -1,0 +1,14 @@
+{
+  "name": "peace-panels",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "parcel": "^2.6.2"
+  },
+  "dependencies": {
+    "lit": "^2.2.8"
+  }
+}
