@@ -146,6 +146,36 @@ const peaceMessages = [
     direction: "rtol",
     displayMessage: true,
   },
+  {
+    language: "Filipino",
+    message: "Sana'y Manatili ang Kapayapáan sa Mundo",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "French",
+    message: "Puisse la paix régner dans le monde",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Hmong",
+    message: "Kom kev thaj yeeb mauj rau ntiaj teb no",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Maori",
+    message: "He maungārongo ki runga i te whenua",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Quechua",
+    message: "Kusi kausay kachun kay pachapi",
+    direction: "ltor",
+    displayMessage: true,
+  },
 ];
 
 class PeacePanel extends LitElement {

@@ -678,6 +678,36 @@ const peaceMessages = [
         message: "\u062F\u0646\u06CC\u0627 \u0645\u06CC\u06BA \u0627\u0645\u0646 \u0642\u0627\u0626\u0645 \u0631\u06C1\u06D2",
         direction: "rtol",
         displayMessage: true
+    },
+    {
+        language: "Filipino",
+        message: "Sana'y Manatili ang Kapayap\xe1an sa Mundo",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "French",
+        message: "Puisse la paix r\xe9gner dans le monde",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Hmong",
+        message: "Kom kev thaj yeeb mauj rau ntiaj teb no",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Maori",
+        message: "He maung\u0101rongo ki runga i te whenua",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Quechua",
+        message: "Kusi kausay kachun kay pachapi",
+        direction: "ltor",
+        displayMessage: true
     }, 
 ];
 class PeacePanel extends (0, _lit.LitElement) {

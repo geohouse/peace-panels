@@ -1,10 +1,11 @@
 body {
   color: red;
+  font-family: sans-serif;
 }
 
 .banner-holder {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row;
   justify-content: space-between;
   align-items: flex-start;
 }
@@ -12,17 +13,18 @@ body {
 .banner-ttob {
   align-self: flex-end;
   display: flex;
-  flex: 0.3vh;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
+  flex: 1 200px;
+  flex-flow: column wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
   writing-mode: vertical-rl;
 }
 
 .banner-ltor {
   display: flex;
-  flex-flow: column wrap;
-  align-items: center;
+  flex-flow: column;
+  flex: 1 200px;
+  align-items: flex-end;
   justify-content: center;
   left: 0;
   top: 0;
@@ -31,19 +33,22 @@ body {
 
 .banner-rtol {
   display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
+  flex: 1 200px;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   right: 0;
   top: 0;
   writing-mode: horizontal-tb;
 }
 
 peace-panel {
-  flex: 1;
+  flex: 1 20px;
+  /*
   display: flex;
-  align-self: center;
+  align-self: flex-start;
   justify-content: center;
+  */
 
   background-color: yellow;
 }
