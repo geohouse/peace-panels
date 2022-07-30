@@ -693,6 +693,9 @@ class PeacePanel extends (0, _lit.LitElement) {
         // information for the current peace panel.
         messageDetails: {
             type: Object
+        },
+        tester: {
+            type: String
         }
     };
     static styles = (0, _lit.css)`
@@ -719,6 +722,7 @@ class PeacePanel extends (0, _lit.LitElement) {
     render() {
         console.log("in render");
         console.log(this.messageDetails.language);
+        console.log(this.tester);
         // Make each peace-panel element have 2 classes: 1 for what is being shown, and the other for the text direction
         // which is needed to style them for correct text direction using the main CSS file. Easiest to define as
         // a variable before using in the template string construction.
@@ -776,7 +780,12 @@ peaceMessages.forEach((message)=>{
     // The name of this property added to the HTML node has to exactly match the name expected
     // in the static properties area of the PeacePanels class definition (this seems to be how it
     // can process multiple pieces of input information attached to the HTML and correctly assign them.)
+    // These are named 'slots' that newPeacePanel is expecting based on our definition in the static properties
+    // section. Can attach any other properties that I want to the peace-panel elements, but only the
+    // ones with the names matching those expected from the properties definition of the class will
+    // be available for use with the Lit web component.
     newPeacePanel.messageDetails = message;
+    newPeacePanel.tester = "Gussy!";
     console.log("in setting up");
     console.log(newPeacePanel.messageDetails);
     if (message.direction === "ttob") document.querySelector(".banner-ttob").appendChild(newPeacePanel);
