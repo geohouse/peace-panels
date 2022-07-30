@@ -533,28 +533,149 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"8lqZg":[function(require,module,exports) {
 var _lit = require("lit");
+// Need to add shuffler of order of objects within the array.
 const peaceMessages = [
     {
         language: "English",
-        message: "Peace",
+        message: "May peace prevail on earth",
         direction: "ltor",
         displayMessage: true
     },
     {
         language: "Spanish",
-        message: "Paz",
+        message: "Que la paz prevalezca en la tierra",
         direction: "ltor",
         displayMessage: true
     },
     {
         language: "Japanese",
-        message: "\u5E73\u548C",
+        message: "\u4E16\u754C\u4EBA\u985E\u304C\u5E73\u548C\u3067\u3042\u308A\u307E\u3059\u3088\u3046\u306B",
         direction: "ttob",
         displayMessage: true
     },
     {
         language: "Arabic",
-        message: "\u0633\u0644\u0627\u0645",
+        message: "\u0627\u0644\u0633\u0644\u0627\u0645 \u0644\u0644\u0639\u0627\u0644\u0645 \u0623\u062C\u0645\u0639",
+        direction: "rtol",
+        displayMessage: true
+    },
+    {
+        language: "Danish",
+        message: "M\xe5 fred herske p\xe5 jorden",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Chinese",
+        message: "\u6211\u5011\u7948\u79B1\u4E16\u754C\u4EBA\u985E\u7684\u548C\u5E73",
+        direction: "ttob",
+        displayMessage: true
+    },
+    {
+        language: "Korean",
+        message: "\uC138\uACC4\uC778\uB958\uC758 \uD3C9\uD654\uAC00 \uC774\uB8E9\uB418\uB3C4\uB85D",
+        direction: "ttob",
+        displayMessage: true
+    },
+    {
+        language: "Persian",
+        message: " \u0628\u0631\u0642\u0631\u0627\u0631 \u0628\u0627\u062F \u0635\u0644\u062D \u062F\u0631 \u0633\u0631\u0627\u0633\u0631 \u062C\u0647\u0627\u0646",
+        direction: "rtol",
+        displayMessage: true
+    },
+    {
+        language: "Hebrew",
+        message: " \u05D9\u05E9\u05E8\u05D4 \u05E9\u05DC\u05D5\u05DD \u05E2\u05DC\u05D9 \u05D0\u05D3\u05DE\u05D5\u05EA",
+        direction: "rtol",
+        displayMessage: true
+    },
+    {
+        language: "Ukrainian",
+        message: "\u0425\u0430\u0439 \u0431\u0443\u0434\u0435 \u043C\u0438\u0440 \u043B\u044E\u0434\u0441\u0442\u0432\u0443 \u0443 \u0432\u0441\u044C\u043E\u043C\u0443 \u0441\u0432\u0456\u0442\u0456",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Russian",
+        message: "\u0414\u0430 \u0431\u0443\u0434\u0435\u0442 \u043C\u0438\u0440 \u0447\u0435\u043B\u043E\u0432\u0435\u0447\u0435\u0441\u0442\u0432\u0443 \u0432\u043E \u0432\u0441\u0451\u043C \u043C\u0438\u0440\u0435",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Tamil",
+        message: "\u0B89\u0BB2\u0B95\u0BBF\u0BB2\u0BCD \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0BA8\u0BBF\u0BB2\u0BB5\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Serbo-Croatian",
+        message: "Neka mirzavlada na zemliji",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Romansch",
+        message: "Possia la pasch reger en il mund",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Hawaiian",
+        message: "E Ho'omaluhia Me Ka Honua",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Icelandic",
+        message: "Megi fri\xf0ur r\xedkja \xe1 j\xf6r\xf0",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Kikuyu",
+        message: "Thay\xfa v\u0301iyv\u0301re thiine wa thi yothe",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Yoruba",
+        message: "Al\xe0\xe1f\xed\xe0 f\xfan gbogbo \xe0gb\xe1y\xe9",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Vietnamese",
+        message: "Nguy\u1EC7n xin h\xf2a b\xecnh \u0111\u1EBFn v\u1EDBi to\xe0n th\u1EC3 nh\xe2n lo\u1EA1i tr\xean th\u1EBF gi\u1EDBi",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Hopi",
+        message: "Tuwa kwatsi es looma eyesni",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Afrikaans",
+        message: "Mag Vrede Se\xebvier Op Aarde",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Algonquin",
+        message: "Quenohteau Ohke woh aquen\xe9 omskauau",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Cherokee",
+        message: "\u13A1\u13B6\u13AF\u13C3 \u13D9\u13AF\u13F1 \u13A8\u13CE\u13CD\u13D7",
+        direction: "ltor",
+        displayMessage: true
+    },
+    {
+        language: "Urdu",
+        message: "\u062F\u0646\u06CC\u0627 \u0645\u06CC\u06BA \u0627\u0645\u0646 \u0642\u0627\u0626\u0645 \u0631\u06C1\u06D2",
         direction: "rtol",
         displayMessage: true
     }, 
@@ -582,9 +703,8 @@ class PeacePanel extends (0, _lit.LitElement) {
       color: rebeccapurple;
     }
     p {
-      color: hotpink;
-      height: 30px;
-      width: 300px;
+      background-color: hotpink;
+      text-align: center;
     }
   `;
     //   constructor() {
@@ -599,12 +719,14 @@ class PeacePanel extends (0, _lit.LitElement) {
     render() {
         console.log("in render");
         console.log(this.messageDetails.language);
+        // Make each peace-panel element have 2 classes: 1 for what is being shown, and the other for the text direction
+        // which is needed to style them for correct text direction using the main CSS file. Easiest to define as
+        // a variable before using in the template string construction.
+        let classList = `${this.messageDetails.displayMessage ? "message" : "language"}`;
+        classList = classList + " " + this.messageDetails.direction;
         //return html`<p>Testing</p>`;
         return (0, _lit.html)`
-      <p
-        class=${this.messageDetails.displayMessage ? "message" : "language"}
-        @click=${()=>this.toggleMessage()}
-      >
+      <p class=${classList} @click=${()=>this.toggleMessage()}>
         ${this.messageDetails.displayMessage ? this.messageDetails.message : this.messageDetails.language}
       </p>
     `;

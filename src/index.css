@@ -2,8 +2,62 @@ body {
   color: red;
 }
 
-peace-panel {
-  height: 100px;
-  width: 300px;
-  color: black;
+.banner-holder {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
 }
+
+.banner-ttob {
+  display: flex;
+  flex: 0.3vh;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+}
+
+.banner-ltor {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  writing-mode: horizontal-tb;
+}
+
+.banner-rtol {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  top: 0;
+  writing-mode: horizontal-tb;
+}
+
+peace-panel {
+  flex: 1;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+
+  background-color: yellow;
+}
+
+/* Not needed anymore.
+The p elements in the peace-panel elements have 2 classes. The second tells the writing mode required for styling here.
+.rtol {
+  writing-mode: horizontal-tb;
+}
+
+.ltor {
+  writing-mode: horizontal-tb;
+}
+
+.ttob {
+  writing-mode: vertical-rl;
+}
+*/

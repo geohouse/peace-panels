@@ -1,27 +1,148 @@
 import { LitElement, html, css } from "lit";
 
+// Need to add shuffler of order of objects within the array.
 const peaceMessages = [
   {
     language: "English",
-    message: "Peace",
+    message: "May peace prevail on earth",
     direction: "ltor",
     displayMessage: true,
   },
   {
     language: "Spanish",
-    message: "Paz",
+    message: "Que la paz prevalezca en la tierra",
     direction: "ltor",
     displayMessage: true,
   },
   {
     language: "Japanese",
-    message: "平和",
+    message: "世界人類が平和でありますように",
     direction: "ttob",
     displayMessage: true,
   },
   {
     language: "Arabic",
-    message: "سلام",
+    message: "السلام للعالم أجمع",
+    direction: "rtol",
+    displayMessage: true,
+  },
+  {
+    language: "Danish",
+    message: "Må fred herske på jorden",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Chinese",
+    message: "我們祈禱世界人類的和平",
+    direction: "ttob",
+    displayMessage: true,
+  },
+  {
+    language: "Korean",
+    message: "세계인류의 평화가 이룩되도록",
+    direction: "ttob",
+    displayMessage: true,
+  },
+  {
+    language: "Persian",
+    message: " برقرار باد صلح در سراسر جهان",
+    direction: "rtol",
+    displayMessage: true,
+  },
+  {
+    language: "Hebrew",
+    message: " ישרה שלום עלי אדמות",
+    direction: "rtol",
+    displayMessage: true,
+  },
+  {
+    language: "Ukrainian",
+    message: "Хай буде мир людству у всьому світі",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Russian",
+    message: "Да будет мир человечеству во всём мире",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Tamil",
+    message: "உலகில் அமைதி நிலவட்டும்",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Serbo-Croatian",
+    message: "Neka mirzavlada na zemliji",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Romansch",
+    message: "Possia la pasch reger en il mund",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Hawaiian",
+    message: "E Ho'omaluhia Me Ka Honua",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Icelandic",
+    message: "Megi friður ríkja á jörð",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Kikuyu",
+    message: "Thayú v́iyv́re thiine wa thi yothe",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Yoruba",
+    message: "Alàáfíà fún gbogbo àgbáyé",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Vietnamese",
+    message: "Nguyện xin hòa bình đến với toàn thể nhân loại trên thế giới",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Hopi",
+    message: "Tuwa kwatsi es looma eyesni",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Afrikaans",
+    message: "Mag Vrede Seëvier Op Aarde",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Algonquin",
+    message: "Quenohteau Ohke woh aquené omskauau",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Cherokee",
+    message: "ᎡᎶᎯᏃ ᏙᎯᏱ ᎨᏎᏍᏗ",
+    direction: "ltor",
+    displayMessage: true,
+  },
+  {
+    language: "Urdu",
+    message: "دنیا میں امن قائم رہے",
     direction: "rtol",
     displayMessage: true,
   },
@@ -48,9 +169,8 @@ class PeacePanel extends LitElement {
       color: rebeccapurple;
     }
     p {
-      color: hotpink;
-      height: 30px;
-      width: 300px;
+      background-color: hotpink;
+      text-align: center;
     }
   `;
   //   constructor() {
@@ -66,12 +186,16 @@ class PeacePanel extends LitElement {
   render() {
     console.log("in render");
     console.log(this.messageDetails.language);
+    // Make each peace-panel element have 2 classes: 1 for what is being shown, and the other for the text direction
+    // which is needed to style them for correct text direction using the main CSS file. Easiest to define as
+    // a variable before using in the template string construction.
+    let classList = `${
+      this.messageDetails.displayMessage ? "message" : "language"
+    }`;
+    classList = classList + " " + this.messageDetails.direction;
     //return html`<p>Testing</p>`;
     return html`
-      <p
-        class=${this.messageDetails.displayMessage ? "message" : "language"}
-        @click=${() => this.toggleMessage()}
-      >
+      <p class=${classList} @click=${() => this.toggleMessage()}>
         ${this.messageDetails.displayMessage
           ? this.messageDetails.message
           : this.messageDetails.language}
