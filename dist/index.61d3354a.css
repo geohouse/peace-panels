@@ -47,4 +47,12 @@ peace-panel {
   flex: 20px;
 }
 
+.svg {
+  fill: #639;
+  z-index: 2;
+  position: absolute;
+  top: 300px;
+  left: 250px;
+}
+
 /*# sourceMappingURL=index.61d3354a.css.map */

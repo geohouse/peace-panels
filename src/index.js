@@ -1,5 +1,9 @@
 import { LitElement, html, css } from "lit";
-
+import {
+  SVG,
+  extend as SVGextend,
+  Element as SVGElement,
+} from "@svgdotjs/svg.js";
 // Need to add shuffler of order of objects within the array.
 const peaceMessages = [
   {
@@ -311,3 +315,20 @@ peaceMessages.forEach((message) => {
     document.querySelector(".banner-ltor").appendChild(newPeacePanel);
   }
 });
+
+let windowWidth = window.innerWidth;
+let windowHeight = window.innerHeight;
+
+const testSVG = SVG()
+  .addTo("body")
+  .size(windowWidth / 2, windowHeight);
+const rect = testSVG.rect(200, 200).attr({ fill: "#0f0", class: "svg" });
+
+// Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
+rect.click(function () {
+  this.fill({ color: "blue" });
+  this.animate().move(150, 150);
+});
+
+console.log(rect);
+rect.setAttribute("class", "svg");
