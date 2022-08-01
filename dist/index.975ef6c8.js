@@ -751,9 +751,9 @@ class PeacePanel extends (0, _lit.LitElement) {
     //     console.log(this);
     //   }
     render() {
-        console.log("in render");
-        console.log(this.messageDetails.language);
-        console.log(this.tester);
+        //console.log("in render");
+        //console.log(this.messageDetails.language);
+        //console.log(this.tester);
         // Make each peace-panel element have 2 classes: 1 for what is being shown, and the other for the text direction
         // which is needed to style them for correct text direction using the main CSS file. Easiest to define as
         // a variable before using in the template string construction.
@@ -768,11 +768,11 @@ class PeacePanel extends (0, _lit.LitElement) {
     }
     // Toggle whether the displayMessage property is set to true/false.
     toggleMessage() {
-        console.log("in toggle");
+        //console.log("in toggle");
         //console.log(this.messageDetails);
         // Toggle the boolean and re-assign
         this.messageDetails.displayMessage = !this.messageDetails.displayMessage;
-        console.log(this.messageDetails.displayMessage);
+        //console.log(this.messageDetails.displayMessage);
         this.requestUpdate();
     }
 }
@@ -806,7 +806,7 @@ customElements.define("peace-panel", PeacePanel);
 //   document.querySelector(".banner-holder").appendChild(newElement);
 // });
 peaceMessages.forEach((message)=>{
-    console.log(message);
+    //console.log(message);
     const newPeacePanel = document.createElement("peace-panel");
     // The name of this property added to the HTML node has to exactly match the name expected
     // in the static properties area of the PeacePanels class definition (this seems to be how it
@@ -817,28 +817,70 @@ peaceMessages.forEach((message)=>{
     // be available for use with the Lit web component.
     newPeacePanel.messageDetails = message;
     newPeacePanel.tester = "Gussy!";
-    console.log("in setting up");
-    console.log(newPeacePanel.messageDetails);
+    //console.log("in setting up");
+    //console.log(newPeacePanel.messageDetails);
     if (message.direction === "ttob") document.querySelector(".banner-ttob").appendChild(newPeacePanel);
     if (message.direction === "rtol") document.querySelector(".banner-rtol").appendChild(newPeacePanel);
     if (message.direction === "ltor") document.querySelector(".banner-ltor").appendChild(newPeacePanel);
 });
+//Get the window width and height every time it's resized (this is a workaround to set the
+// window dimensions using percentages of the window size when the input size only accepts pixels)
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
-const testSVG = (0, _svgJs.SVG)().addTo("body").size(windowWidth / 2, windowHeight);
-const rect = testSVG.rect(200, 200).attr({
+// const testSVG = SVG()
+//   .addTo("body")
+//   .size(windowWidth / 2, windowHeight);
+// let rect = testSVG
+//   .rect(windowWidth / 10, windowHeight / 10)
+//   .attr({ fill: "#0f0", class: "svg" });
+function makeSVGContainer(width, height, className) {
+    return svgContainer = (0, _svgJs.SVG)().addTo("body").size(width, height).addClass(className);
+}
+const rtolSVGContainer = makeSVGContainer(windowWidth, windowHeight, "rtol-svg-container");
+const ttobSVGContainer = makeSVGContainer(windowWidth, windowHeight / 2, "ttob-svg-container");
+const ltorSVGContainer = makeSVGContainer(windowWidth / 2, windowHeight, "ltor-svg-container");
+let rtolSVG, ttobSVG, ltorSVG;
+rtolSVG = rtolSVGContainer.polygon(`0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${windowWidth / 2},0 0,0`).attr({
     fill: "#0f0",
-    class: "svg"
+    class: "rtol-svg"
 });
-// Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
-rect.click(function() {
+ttobSVG = rtolSVGContainer.polygon(`0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${windowHeight / 2}`).attr({
+    fill: "#f00",
+    class: "ttob-svg"
+});
+ltorSVG = rtolSVGContainer.polygon(`${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${windowWidth / 2},0`).attr({
+    fill: "#00f",
+    class: "rtol-svg",
+    top: 0,
+    left: windowWidth / 2
+});
+console.log(ltorSVG);
+// Scales the SVG along with the window size.
+function updateSVGSize() {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+    // Remove the previous rectangle and re-render with the new width/height dimensions
+    rect.remove();
+    rect = testSVG.rect(windowWidth / 10, windowHeight / 10).attr({
+        fill: "#0f0",
+        class: "svg"
+    });
+}
+// window.addEventListener("resize", updateSVGSize);
+// // Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
+// rect.click(function () {
+//   this.fill({ color: "blue" });
+//   this.animate().move(150, 150);
+// });
+ltorSVG.click(function() {
+    console.log("fired");
     this.fill({
         color: "blue"
     });
     this.animate().move(150, 150);
 });
-console.log(rect);
-rect.setAttribute("class", "svg");
+console.log(ltorSVG); // console.log(rect);
+ // rect.setAttribute("class", "svg");
 
 },{"lit":"4antt","@svgdotjs/svg.js":"9S56O"}],"4antt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
