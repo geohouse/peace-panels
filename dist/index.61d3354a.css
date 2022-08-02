@@ -55,14 +55,14 @@ svg {
   fill: #639;
 }
 
-.ltor-svg-container {
+.full-container {
+  z-index: 1;
   position: fixed;
   top: 0;
   right: 0;
 }
 
 .rtol-svg-container {
-  position: fixed;
   top: 0;
   left: 0;
 }

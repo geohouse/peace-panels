@@ -327,37 +327,50 @@ let windowHeight = window.innerHeight;
 //   .size(windowWidth / 2, windowHeight);
 
 // let rect = testSVG
-//   .rect(windowWidth / 10, windowHeight / 10)
+//   .polygon(`0,0 100,100 150,150, 150,0 0,0`)
 //   .attr({ fill: "#0f0", class: "svg" });
 
-function makeSVGContainer(width, height, className) {
-  return (svgContainer = SVG()
-    .addTo("body")
-    .size(width, height)
-    .addClass(className));
-}
+// function makeSVGContainer(width, height, className) {
+//   return (svgContainer = SVG()
+//     .addTo("body")
+//     .size(width, height)
+//     .addClass(className));
+// }
 
-const rtolSVGContainer = makeSVGContainer(
-  windowWidth,
-  windowHeight,
-  "rtol-svg-container"
-);
+const fullContainer = SVG()
+  .addTo(".banner-holder")
+  .size(windowWidth, windowHeight)
+  .addClass("full-container");
 
-const ttobSVGContainer = makeSVGContainer(
-  windowWidth,
-  windowHeight / 2,
-  "ttob-svg-container"
-);
+// const ttobContainer = SVG()
+//   .addTo(".banner-ttob")
+//   .size(windowWidth, windowHeight)
+//   .addClass("ttob-container");
 
-const ltorSVGContainer = makeSVGContainer(
-  windowWidth / 2,
-  windowHeight,
-  "ltor-svg-container"
-);
+// const rtolContainer = SVG()
+//   .addTo(".banner-rtol")
+//   .size(windowWidth, windowHeight)
+//   .addClass("rtol-container");
 
-let rtolSVG, ttobSVG, ltorSVG;
+// let rect = fullContainer
+//   .polygon(`0,0 100,100 150,150, 150,0 0,0`)
+//   .attr({ fill: "#0f0", class: "svg" });
 
-rtolSVG = rtolSVGContainer
+// const ttobSVGContainer = makeSVGContainer(
+//   windowWidth,
+//   windowHeight / 2,
+//   "ttob-svg-container"
+// );
+
+// const ltorSVGContainer = makeSVGContainer(
+//   windowWidth / 2,
+//   windowHeight,
+//   "ltor-svg-container"
+// );
+
+// let rtolSVG, ttobSVG, ltorSVG;
+
+rtolSVG = fullContainer
   .polygon(
     `0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${
       windowWidth / 2
@@ -365,7 +378,7 @@ rtolSVG = rtolSVGContainer
   )
   .attr({ fill: "#0f0", class: "rtol-svg" });
 
-ttobSVG = rtolSVGContainer
+ttobSVG = fullContainer
   .polygon(
     `0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${
       windowHeight / 2
@@ -373,7 +386,7 @@ ttobSVG = rtolSVGContainer
   )
   .attr({ fill: "#f00", class: "ttob-svg" });
 
-ltorSVG = rtolSVGContainer
+ltorSVG = fullContainer
   .polygon(
     `${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${
       windowHeight / 2
@@ -381,6 +394,31 @@ ltorSVG = rtolSVGContainer
   )
   .attr({ fill: "#00f", class: "rtol-svg", top: 0, left: windowWidth / 2 });
 console.log(ltorSVG);
+
+// rtolSVG = rtolContainer
+//   .polygon(
+//     `0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${
+//       windowWidth / 2
+//     },0 0,0`
+//   )
+//   .attr({ fill: "#0f0", class: "rtol-svg" });
+
+// ttobSVG = ttobContainer
+//   .polygon(
+//     `0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${
+//       windowHeight / 2
+//     }`
+//   )
+//   .attr({ fill: "#f00", class: "ttob-svg" });
+
+// ltorSVG = ltorContainer
+//   .polygon(
+//     `${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${
+//       windowHeight / 2
+//     } ${windowWidth / 2},0`
+//   )
+//   .attr({ fill: "#00f", class: "rtol-svg", top: 0, left: windowWidth / 2 });
+// console.log(ltorSVG);
 
 // Scales the SVG along with the window size.
 function updateSVGSize() {
@@ -405,8 +443,39 @@ ltorSVG.click(function () {
   console.log("fired");
   this.fill({ color: "blue" });
   this.animate().move(150, 150);
+  document.querySelector(".banner-holder-rtol").click();
 });
 
-console.log(ltorSVG);
+rtolSVG.click(function () {
+  console.log("fired");
+  this.fill({ color: "blue" });
+  this.animate().move(150, 150);
+});
+
+ttobSVG.click(function () {
+  console.log("fired");
+  this.fill({ color: "blue" });
+  this.animate().move(150, 150);
+});
+
+document.querySelector(".svg").addEventListener("click", function () {
+  console.log("Clicked!");
+});
+
+// rtolSVG.click(function () {
+//   console.log("fired");
+//   this.fill({ color: "blue" });
+//   this.animate().move(150, 150);
+// });
+
+// let test = document.querySelector(".full-container > .ltor-svg");
+// console.log("here");
+// console.log(ltorSVG);
+// ltorSVG.addEventListener("click", function () {
+//   console.log("in click");
+//   this.fill({ color: "red" });
+// });
+
+//console.log(ltorSVG);
 // console.log(rect);
 // rect.setAttribute("class", "svg");

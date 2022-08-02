@@ -62,14 +62,15 @@ svg {
   fill: rebeccapurple;
 }
 
-.ltor-svg-container {
+.full-container {
   position: fixed;
   top: 0px;
   right: 0px;
+  z-index: 1;
 }
 
 .rtol-svg-container {
-  position: fixed;
+  /*position: fixed;*/
   top: 0px;
   left: 0px;
 }
