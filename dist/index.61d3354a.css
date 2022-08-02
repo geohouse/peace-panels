@@ -4,6 +4,7 @@ body {
 }
 
 .banner-holder {
+  z-index: -2;
   flex-flow: row;
   justify-content: space-between;
   align-items: flex-start;
@@ -43,20 +44,21 @@ body {
 }
 
 peace-panel {
+  z-index: 1;
   background-color: #ff0;
   flex: 20px;
 }
 
-svg {
-  z-index: -1;
-}
-
 .svg {
   fill: #639;
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .full-container {
-  z-index: 1;
+  z-index: 0;
   position: fixed;
   top: 0;
   right: 0;

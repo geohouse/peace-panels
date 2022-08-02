@@ -8,6 +8,7 @@ body {
   flex-flow: row;
   justify-content: space-between;
   align-items: flex-start;
+  z-index: -2;
 }
 
 .banner-ttob {
@@ -51,22 +52,29 @@ peace-panel {
   */
 
   background-color: yellow;
+  /* This z-index call is critical to allow the peace panels to be clickable along with the banners underneath them. */
+  z-index: 1;
 }
 
-svg {
-  /*Ensure it renders behind the peace-panel elements*/
+/* svg {
+  / *Ensure it renders behind the peace-panel elements* /
   z-index: -1;
-}
+} */
 
 .svg {
   fill: rebeccapurple;
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  right: 0px;
 }
 
 .full-container {
   position: fixed;
   top: 0px;
   right: 0px;
-  z-index: 1;
+  /* This z-index is critical to keep the banners underneath the peace-panel elements, but to make both of them clickable.*/
+  z-index: 0;
 }
 
 .rtol-svg-container {
@@ -74,6 +82,7 @@ svg {
   top: 0px;
   left: 0px;
 }
+
 /* Not needed anymore.
 The p elements in the peace-panel elements have 2 classes. The second tells the writing mode required for styling here.
 .rtol {
