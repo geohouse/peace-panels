@@ -370,14 +370,20 @@ const fullContainer = SVG()
 
 // let rtolSVG, ttobSVG, ltorSVG;
 
-function renderSVG(windowHeight, windowWidth) {
+function renderSVG(
+  windowHeight,
+  windowWidth,
+  rtolClass = "min",
+  ttobClass = "min",
+  ltorClass = "min"
+) {
   rtolSVG = fullContainer
     .polygon(
       `0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${
         windowWidth / 2
       },0 0,0`
     )
-    .attr({ fill: "#0f0", class: "rtol-svg" });
+    .attr({ fill: "#0f0", class: `rtol-svg ${rtolClass}` });
 
   ttobSVG = fullContainer
     .polygon(
@@ -385,7 +391,7 @@ function renderSVG(windowHeight, windowWidth) {
         windowHeight / 2
       }`
     )
-    .attr({ fill: "#f00", class: "ttob-svg" });
+    .attr({ fill: "#f00", class: `ttob-svg ${ttobClass}` });
 
   ltorSVG = fullContainer
     .polygon(
@@ -393,7 +399,12 @@ function renderSVG(windowHeight, windowWidth) {
         windowHeight / 2
       } ${windowWidth / 2},0`
     )
-    .attr({ fill: "#00f", class: "rtol-svg", top: 0, left: windowWidth / 2 });
+    .attr({
+      fill: "#00f",
+      class: `ltor-svg ${ltorClass}`,
+      top: 0,
+      left: windowWidth * (9 / 10),
+    });
   console.log(ltorSVG);
 
   // Add the click event handlers
@@ -401,7 +412,8 @@ function renderSVG(windowHeight, windowWidth) {
     console.log("fired");
     this.fill({ color: "blue" });
     this.animate().move(150, 150);
-    document.querySelector(".banner-holder-rtol").click();
+    console.log(this);
+    this.node.classList[1] = "max";
   });
 
   rtolSVG.click(function () {
@@ -427,10 +439,28 @@ function updateSVGSize() {
   //   .rect(windowWidth / 10, windowHeight / 10)
   //   .attr({ fill: "#0f0", class: "svg" });
 
+  // The background color panels are min/maxed based on their second class value.
+  // Updating them with window size destroys the previous panels and their class state, so
+  // need to capture their current class state here before removing them, and pass that to the
+  // renderSVG function so that when they're re-sized, they keep their same min/max appearance.
+  const currLTORSVG = document.querySelector(".ltor-svg");
+  const currRTOLSVG = document.querySelector(".rtol-svg");
+  const currTTOBSVG = document.querySelector(".ttob-svg");
+
+  const currLTORClass = currLTORSVG.classList[1];
+  const currRTOLClass = currRTOLSVG.classList[1];
+  const currTTOBClass = currTTOBSVG.classList[1];
+
   ltorSVG.remove();
   ttobSVG.remove();
   rtolSVG.remove();
-  renderSVG(windowHeight, windowWidth);
+  renderSVG(
+    windowHeight,
+    windowWidth,
+    currRTOLClass,
+    currTTOBClass,
+    currLTORClass
+  );
 }
 // Initial SVG render of the background areas
 renderSVG(windowHeight, windowWidth);
