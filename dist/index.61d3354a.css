@@ -4,7 +4,6 @@ body {
 }
 
 .banner-holder {
-  z-index: -2;
   flex-flow: row;
   justify-content: space-between;
   align-items: flex-start;
@@ -25,7 +24,7 @@ body {
   writing-mode: horizontal-tb;
   flex-flow: column;
   flex: 200px;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-end;
   display: flex;
   top: 0;
@@ -60,8 +59,6 @@ peace-panel {
 .full-container {
   z-index: 0;
   position: fixed;
-  top: 0;
-  right: 0;
 }
 
 .rtol-svg-container {

@@ -862,55 +862,42 @@ const fullContainer = (0, _svgJs.SVG)().addTo(".banner-holder").size(windowWidth
 //   "ltor-svg-container"
 // );
 // let rtolSVG, ttobSVG, ltorSVG;
-rtolSVG = fullContainer.polygon(`0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${windowWidth / 2},0 0,0`).attr({
-    fill: "#0f0",
-    class: "rtol-svg"
-});
-ttobSVG = fullContainer.polygon(`0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${windowHeight / 2}`).attr({
-    fill: "#f00",
-    class: "ttob-svg"
-});
-ltorSVG = fullContainer.polygon(`${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${windowWidth / 2},0`).attr({
-    fill: "#00f",
-    class: "rtol-svg",
-    top: 0,
-    left: windowWidth / 2
-});
-console.log(ltorSVG);
-// rtolSVG = rtolContainer
-//   .polygon(
-//     `0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${
-//       windowWidth / 2
-//     },0 0,0`
-//   )
-//   .attr({ fill: "#0f0", class: "rtol-svg" });
-// ttobSVG = ttobContainer
-//   .polygon(
-//     `0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${
-//       windowHeight / 2
-//     }`
-//   )
-//   .attr({ fill: "#f00", class: "ttob-svg" });
-// ltorSVG = ltorContainer
-//   .polygon(
-//     `${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${
-//       windowHeight / 2
-//     } ${windowWidth / 2},0`
-//   )
-//   .attr({ fill: "#00f", class: "rtol-svg", top: 0, left: windowWidth / 2 });
-// console.log(ltorSVG);
+function renderSVG(windowHeight1, windowWidth1) {
+    rtolSVG = fullContainer.polygon(`0,0 0,${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2} ${windowWidth1 / 2},0 0,0`).attr({
+        fill: "#0f0",
+        class: "rtol-svg"
+    });
+    ttobSVG = fullContainer.polygon(`0,${windowHeight1} ${windowWidth1},${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2}`).attr({
+        fill: "#f00",
+        class: "ttob-svg"
+    });
+    ltorSVG = fullContainer.polygon(`${windowWidth1},0 ${windowWidth1},${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2} ${windowWidth1 / 2},0`).attr({
+        fill: "#00f",
+        class: "rtol-svg",
+        top: 0,
+        left: windowWidth1 / 2
+    });
+    console.log(ltorSVG);
+}
 // Scales the SVG along with the window size.
 function updateSVGSize() {
     windowWidth = window.innerWidth;
     windowHeight = window.innerHeight;
     // Remove the previous rectangle and re-render with the new width/height dimensions
-    rect.remove();
-    rect = testSVG.rect(windowWidth / 10, windowHeight / 10).attr({
-        fill: "#0f0",
-        class: "svg"
-    });
+    // rect.remove();
+    // rect = testSVG
+    //   .rect(windowWidth / 10, windowHeight / 10)
+    //   .attr({ fill: "#0f0", class: "svg" });
+    ltorSVG.remove();
+    ttobSVG.remove();
+    rtolSVG.remove();
+    renderSVG(windowHeight, windowWidth);
 }
-// window.addEventListener("resize", updateSVGSize);
+// Initial SVG render of the background areas
+renderSVG(windowHeight, windowWidth);
+// If the window size changes, re-calculate and re-render the background areas so they still fit correctly
+// based on the new screen size.
+window.addEventListener("resize", updateSVGSize);
 // // Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
 // rect.click(function () {
 //   this.fill({ color: "blue" });
@@ -937,24 +924,9 @@ ttobSVG.click(function() {
         color: "blue"
     });
     this.animate().move(150, 150);
-});
-document.querySelector(".svg").addEventListener("click", function() {
-    console.log("Clicked!");
-}); // rtolSVG.click(function () {
- //   console.log("fired");
- //   this.fill({ color: "blue" });
- //   this.animate().move(150, 150);
+}); // document.querySelector(".svg").addEventListener("click", function () {
+ //   console.log("Clicked!");
  // });
- // let test = document.querySelector(".full-container > .ltor-svg");
- // console.log("here");
- // console.log(ltorSVG);
- // ltorSVG.addEventListener("click", function () {
- //   console.log("in click");
- //   this.fill({ color: "red" });
- // });
- //console.log(ltorSVG);
- // console.log(rect);
- // rect.setAttribute("class", "svg");
 
 },{"lit":"4antt","@svgdotjs/svg.js":"9S56O"}],"4antt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
