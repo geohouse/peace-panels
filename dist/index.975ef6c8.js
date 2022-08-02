@@ -878,6 +878,29 @@ function renderSVG(windowHeight1, windowWidth1) {
         left: windowWidth1 / 2
     });
     console.log(ltorSVG);
+    // Add the click event handlers
+    ltorSVG.click(function() {
+        console.log("fired");
+        this.fill({
+            color: "blue"
+        });
+        this.animate().move(150, 150);
+        document.querySelector(".banner-holder-rtol").click();
+    });
+    rtolSVG.click(function() {
+        console.log("fired");
+        this.fill({
+            color: "blue"
+        });
+        this.animate().move(150, 150);
+    });
+    ttobSVG.click(function() {
+        console.log("fired");
+        this.fill({
+            color: "blue"
+        });
+        this.animate().move(150, 150);
+    });
 }
 // Scales the SVG along with the window size.
 function updateSVGSize() {
@@ -897,34 +920,12 @@ function updateSVGSize() {
 renderSVG(windowHeight, windowWidth);
 // If the window size changes, re-calculate and re-render the background areas so they still fit correctly
 // based on the new screen size.
-window.addEventListener("resize", updateSVGSize);
-// // Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
-// rect.click(function () {
-//   this.fill({ color: "blue" });
-//   this.animate().move(150, 150);
-// });
-ltorSVG.click(function() {
-    console.log("fired");
-    this.fill({
-        color: "blue"
-    });
-    this.animate().move(150, 150);
-    document.querySelector(".banner-holder-rtol").click();
-});
-rtolSVG.click(function() {
-    console.log("fired");
-    this.fill({
-        color: "blue"
-    });
-    this.animate().move(150, 150);
-});
-ttobSVG.click(function() {
-    console.log("fired");
-    this.fill({
-        color: "blue"
-    });
-    this.animate().move(150, 150);
-}); // document.querySelector(".svg").addEventListener("click", function () {
+window.addEventListener("resize", updateSVGSize); // // Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
+ // rect.click(function () {
+ //   this.fill({ color: "blue" });
+ //   this.animate().move(150, 150);
+ // });
+ // document.querySelector(".svg").addEventListener("click", function () {
  //   console.log("Clicked!");
  // });
 
