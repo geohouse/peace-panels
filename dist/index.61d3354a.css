@@ -4,6 +4,7 @@ body {
 }
 
 .banner-holder {
+  height: 100vh;
   flex-flow: row;
   justify-content: space-between;
   align-items: flex-start;
@@ -43,6 +44,8 @@ body {
 }
 
 peace-panel {
+  inline-size: 5em;
+  overflow-wrap: break-word;
   z-index: 1;
   background-color: #ff0;
   flex: 20px;

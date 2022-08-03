@@ -479,7 +479,7 @@ function renderSVG(
   ltorSVG.click(function () {
     console.log("fired");
     this.fill({ color: "blue" });
-    this.animate().move(150, 150);
+    this.animate().move((8 / 10) * windowWidth, 0);
     console.log(this);
     this.node.classList[1] = "max";
   });

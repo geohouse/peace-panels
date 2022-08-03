@@ -940,7 +940,7 @@ function renderSVG(windowHeight1, windowWidth1, rtolClass = "min", ttobClass = "
         this.fill({
             color: "blue"
         });
-        this.animate().move(150, 150);
+        this.animate().move(0.8 * windowWidth1, 0);
         console.log(this);
         this.node.classList[1] = "max";
     });

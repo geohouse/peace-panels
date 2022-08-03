@@ -4,6 +4,7 @@ body {
 }
 
 .banner-holder {
+  height: 100vh;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -45,6 +46,9 @@ body {
 
 peace-panel {
   flex: 1 20px;
+  /* This sets the length of the lines for the peace panel text, and wraps around words.*/
+  inline-size: 5em;
+  overflow-wrap: break-word;
   /*
   display: flex;
   align-self: flex-start;
