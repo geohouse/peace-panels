@@ -443,13 +443,11 @@ const fullContainer = SVG()
 // Initialize to undefined
 let rtolSVG, ltorSVG, ttobSVG;
 
-function renderSVG_full(
-  windowHeight,
-  windowWidth,
-  renderLtor,
-  renderRtol,
-  renderTtob
-) {
+function renderSVG_full(renderLtor, renderRtol, renderTtob) {
+  //Get the window dimensions to work with
+  windowWidth = window.visualViewport.width;
+  windowHeight = window.visualViewport.height;
+
   if (renderRtol) {
     if (rtolSVG != undefined) {
       rtolSVG.remove();
@@ -467,7 +465,7 @@ function renderSVG_full(
       this.fill({ color: "blue" });
       this.animate().move(-(3 / 10) * windowWidth, 0);
       // this.node.classList[1] = min;
-      renderSVG_side(windowHeight, windowWidth, false, true, false);
+      renderSVG_side(false, true, false);
     });
   }
 
@@ -487,7 +485,7 @@ function renderSVG_full(
       console.log("fired");
       this.fill({ color: "blue" });
       this.animate().move(0, (8 / 10) * windowHeight);
-      this.node.classList[1] = `${ttobClass}`;
+      renderSVG_side(false, false, true);
     });
   }
   if (renderLtor) {
@@ -503,8 +501,6 @@ function renderSVG_full(
       .attr({
         fill: "#00f",
         class: `ltor-svg max`,
-        top: 0,
-        left: windowWidth * (9 / 10),
       });
     console.log(ltorSVG);
 
@@ -514,94 +510,15 @@ function renderSVG_full(
       this.fill({ color: "blue" });
       this.animate().move((8 / 10) * windowWidth, 0);
       console.log(this);
-      this.node.classList[1] = `${ltorClass}`;
+      renderSVG_side(true, false, false);
     });
   }
 }
 
-function renderSVG_full(
-  windowHeight,
-  windowWidth,
-  renderLtor,
-  renderRtol,
-  renderTtob
-) {
-  if (renderRtol) {
-    if (rtolSVG != undefined) {
-      rtolSVG.remove();
-    }
-    rtolSVG = fullContainer
-      .polygon(
-        `0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${
-          windowWidth / 2
-        },0 0,0`
-      )
-      .attr({ fill: "#0f0", class: `rtol-svg max` });
-    // Set the click event handler to change the class to 'min' and render to the side when clicked
-    rtolSVG.click(function () {
-      console.log("fired");
-      this.fill({ color: "blue" });
-      this.animate().move(-(3 / 10) * windowWidth, 0);
-      // this.node.classList[1] = min;
-      renderSVG_side(windowHeight, windowWidth, false, true, false);
-    });
-  }
-
-  if (renderTtob) {
-    if (ttobSVG != undefined) {
-      ttobSVG.remove();
-    }
-    ttobSVG = fullContainer
-      .polygon(
-        `0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${
-          windowHeight / 2
-        }`
-      )
-      .attr({ fill: "#f00", class: `ttob-svg max` });
-
-    ttobSVG.click(function () {
-      console.log("fired");
-      this.fill({ color: "blue" });
-      this.animate().move(0, (8 / 10) * windowHeight);
-      this.node.classList[1] = `${ttobClass}`;
-    });
-  }
-  if (renderLtor) {
-    if (ltorSVG != undefined) {
-      ltorSVG.remove();
-    }
-    ltorSVG = fullContainer
-      .polygon(
-        `${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${
-          windowHeight / 2
-        } ${windowWidth / 2},0`
-      )
-      .attr({
-        fill: "#00f",
-        class: `ltor-svg max`,
-        top: 0,
-        left: windowWidth * (9 / 10),
-      });
-    console.log(ltorSVG);
-
-    // Add the click event handlers
-    ltorSVG.click(function () {
-      console.log("fired");
-      this.fill({ color: "blue" });
-      this.animate().move((8 / 10) * windowWidth, 0);
-      console.log(this);
-      this.node.classList[1] = `${ltorClass}`;
-    });
-  }
-}
-
-function renderSVG_side(
-  windowHeight,
-  windowWidth,
-  renderLtor,
-  renderRtol,
-  renderTtob
-) {
+function renderSVG_side(renderLtor, renderRtol, renderTtob) {
+  //Get the window dimensions to work with
+  windowWidth = window.visualViewport.width;
+  windowHeight = window.visualViewport.height;
   if (renderRtol) {
     if (rtolSVG != undefined) {
       rtolSVG.remove();
@@ -621,7 +538,7 @@ function renderSVG_side(
       this.fill({ color: "blue" });
       this.animate().move(0, 0);
       // this.node.classList[1] = min;
-      renderSVG_full(windowHeight, windowWidth, false, true, false);
+      renderSVG_full(false, true, false);
     });
   }
 
@@ -631,17 +548,17 @@ function renderSVG_side(
     }
     ttobSVG = fullContainer
       .polygon(
-        `0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${
-          windowHeight / 2
-        }`
+        `0,${windowHeight + (1 / 10) * windowHeight} ${windowWidth},${
+          windowHeight + (1 / 10) * windowHeight
+        } ${windowWidth / 2},${(6 / 10) * windowHeight}`
       )
-      .attr({ fill: "#f00", class: `ttob-svg max` });
+      .attr({ fill: "#f00", class: `ttob-svg min` });
 
     ttobSVG.click(function () {
       console.log("fired");
       this.fill({ color: "blue" });
       this.animate().move(0, (8 / 10) * windowHeight);
-      this.node.classList[1] = `${ttobClass}`;
+      renderSVG_full(false, false, true);
     });
   }
   if (renderLtor) {
@@ -650,15 +567,17 @@ function renderSVG_side(
     }
     ltorSVG = fullContainer
       .polygon(
-        `${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${
+        `${(13 / 10) * windowWidth},0 ${
+          (13 / 10) * windowWidth
+        },${windowHeight} ${windowWidth / 2 + (3 / 10) * windowWidth},${
           windowHeight / 2
-        } ${windowWidth / 2},0`
+        } ${windowWidth / 2 + (3 / 10) * windowWidth},0 ${
+          (13 / 10) * windowWidth
+        },0`
       )
       .attr({
         fill: "#00f",
-        class: `ltor-svg max`,
-        top: 0,
-        left: windowWidth * (9 / 10),
+        class: `ltor-svg min`,
       });
     console.log(ltorSVG);
 
@@ -668,7 +587,7 @@ function renderSVG_side(
       this.fill({ color: "blue" });
       this.animate().move((8 / 10) * windowWidth, 0);
       console.log(this);
-      this.node.classList[1] = `${ltorClass}`;
+      renderSVG_full(true, false, false);
     });
   }
 }
@@ -680,8 +599,6 @@ function updateSVGSize(event) {
   if (event != "") {
     resized = true;
   }
-  let windowWidth = window.visualViewport.width;
-  let windowHeight = window.visualViewport.height;
 
   // Remove the previous rectangle and re-render with the new width/height dimensions
   // rect.remove();
@@ -705,20 +622,16 @@ function updateSVGSize(event) {
   // rtolSVG.remove();
 
   renderSVG_full(
-    windowHeight,
-    windowWidth,
     currLTORClass === "max" ? true : false,
     currRTOLClass === "max" ? true : false,
     currTTOBClass === "max" ? true : false
   );
 
-  // renderSVG_side(
-  //   windowHeight,
-  //   windowWidth,
-  //   currLTORClass === "min" ? true : false,
-  //   currRTOLClass === "min" ? true : false,
-  //   currTTOBClass === "min" ? true: false,
-  // );
+  renderSVG_side(
+    currLTORClass === "min" ? true : false,
+    currRTOLClass === "min" ? true : false,
+    currTTOBClass === "min" ? true : false
+  );
 }
 // Initial SVG render of the background areas
 renderSVG_full(windowHeight, windowWidth, true, true, true);
