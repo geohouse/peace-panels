@@ -920,49 +920,69 @@ const fullContainer = (0, _svgJs.SVG)().addTo(".banner-holder").size(windowWidth
 //   "ltor-svg-container"
 // );
 // let rtolSVG, ttobSVG, ltorSVG;
-function renderSVG(windowHeight1, windowWidth1, rtolClass = "min", ttobClass = "min", ltorClass = "min") {
-    rtolSVG = fullContainer.polygon(`0,0 0,${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2} ${windowWidth1 / 2},0 0,0`).attr({
-        fill: "#0f0",
-        class: `rtol-svg ${rtolClass}`
-    });
-    ttobSVG = fullContainer.polygon(`0,${windowHeight1} ${windowWidth1},${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2}`).attr({
-        fill: "#f00",
-        class: `ttob-svg ${ttobClass}`
-    });
-    ltorSVG = fullContainer.polygon(`${windowWidth1},0 ${windowWidth1},${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2} ${windowWidth1 / 2},0`).attr({
-        fill: "#00f",
-        class: `ltor-svg ${ltorClass}`,
-        top: 0,
-        left: windowWidth1 * 0.9
-    });
-    console.log(ltorSVG);
-    // Add the click event handlers
-    ltorSVG.click(function() {
-        console.log("fired");
-        this.fill({
-            color: "blue"
+// Initialize to undefined
+let rtolSVG, ltorSVG, ttobSVG;
+function renderSVG_full(windowHeight1, windowWidth1, renderLtor, renderRtol, renderTtob) {
+    if (renderRtol) {
+        if (rtolSVG != undefined) rtolSVG.remove();
+        rtolSVG = fullContainer.polygon(`0,0 0,${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2} ${windowWidth1 / 2},0 0,0`).attr({
+            fill: "#0f0",
+            class: `rtol-svg max`
         });
-        this.animate().move(0.8 * windowWidth1, 0);
-        console.log(this);
-        this.node.classList[1] = "max";
-    });
-    rtolSVG.click(function() {
-        console.log("fired");
-        this.fill({
-            color: "blue"
+        // Set the click event handler to change the class to 'min' and render to the side when clicked
+        rtolSVG.click(function() {
+            console.log("fired");
+            this.fill({
+                color: "blue"
+            });
+            this.animate().move(-0.3 * windowWidth1, 0);
+            // this.node.classList[1] = min;
+            renderSVG_side(windowHeight1, windowWidth1, false, true, false);
         });
-        this.animate().move(-0.3 * windowWidth1, 0);
-    });
-    ttobSVG.click(function() {
-        console.log("fired");
-        this.fill({
-            color: "blue"
+    }
+    if (renderTtob) {
+        if (ttobSVG != undefined) ttobSVG.remove();
+        ttobSVG = fullContainer.polygon(`0,${windowHeight1} ${windowWidth1},${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2}`).attr({
+            fill: "#f00",
+            class: `ttob-svg max`
         });
-        this.animate().move(0, 0.8 * windowHeight1);
-    });
+        ttobSVG.click(function() {
+            console.log("fired");
+            this.fill({
+                color: "blue"
+            });
+            this.animate().move(0, 0.8 * windowHeight1);
+            this.node.classList[1] = `${ttobClass}`;
+        });
+    }
+    if (renderLtor) {
+        if (ltorSVG != undefined) ltorSVG.remove();
+        ltorSVG = fullContainer.polygon(`${windowWidth1},0 ${windowWidth1},${windowHeight1} ${windowWidth1 / 2},${windowHeight1 / 2} ${windowWidth1 / 2},0`).attr({
+            fill: "#00f",
+            class: `ltor-svg max`,
+            top: 0,
+            left: windowWidth1 * 0.9
+        });
+        console.log(ltorSVG);
+        // Add the click event handlers
+        ltorSVG.click(function() {
+            console.log("fired");
+            this.fill({
+                color: "blue"
+            });
+            this.animate().move(0.8 * windowWidth1, 0);
+            console.log(this);
+            this.node.classList[1] = `${ltorClass}`;
+        });
+    }
 }
 // Scales the SVG along with the window size.
-function updateSVGSize() {
+function updateSVGSize(event) {
+    console.log({
+        event
+    });
+    let resized = false;
+    if (event != "") resized = true;
     let windowWidth2 = window.visualViewport.width;
     let windowHeight2 = window.visualViewport.height;
     // Remove the previous rectangle and re-render with the new width/height dimensions
@@ -980,13 +1000,20 @@ function updateSVGSize() {
     const currLTORClass = currLTORSVG.classList[1];
     const currRTOLClass = currRTOLSVG.classList[1];
     const currTTOBClass = currTTOBSVG.classList[1];
-    ltorSVG.remove();
-    ttobSVG.remove();
-    rtolSVG.remove();
-    renderSVG(windowHeight2, windowWidth2, currRTOLClass, currTTOBClass, currLTORClass);
+    // ltorSVG.remove();
+    // ttobSVG.remove();
+    // rtolSVG.remove();
+    renderSVG_full(windowHeight2, windowWidth2, currLTORClass === "max" ? true : false, currRTOLClass === "max" ? true : false, currTTOBClass === "max" ? true : false);
+// renderSVG_side(
+//   windowHeight,
+//   windowWidth,
+//   currLTORClass === "min" ? true : false,
+//   currRTOLClass === "min" ? true : false,
+//   currTTOBClass === "min" ? true: false,
+// );
 }
 // Initial SVG render of the background areas
-renderSVG(windowHeight, windowWidth);
+renderSVG_full(windowHeight, windowWidth, true, true, true);
 // If the window size changes, re-calculate and re-render the background areas so they still fit correctly
 // based on the new screen size.
 window.addEventListener("resize", updateSVGSize); // // Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
