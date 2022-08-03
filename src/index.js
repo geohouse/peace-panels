@@ -387,8 +387,10 @@ sampledMessages.forEach((message) => {
 
 //Get the window width and height every time it's resized (this is a workaround to set the
 // window dimensions using percentages of the window size when the input size only accepts pixels)
-let windowWidth = window.innerWidth;
-let windowHeight = window.innerHeight;
+// let windowWidth = window.innerWidth;
+// let windowHeight = window.innerHeight;
+let windowWidth = window.visualViewport.width;
+let windowHeight = window.visualViewport.height;
 
 // const testSVG = SVG()
 //   .addTo("body")
@@ -487,20 +489,21 @@ function renderSVG(
   rtolSVG.click(function () {
     console.log("fired");
     this.fill({ color: "blue" });
-    this.animate().move(150, 150);
+    this.animate().move(-(3 / 10) * windowWidth, 0);
   });
 
   ttobSVG.click(function () {
     console.log("fired");
     this.fill({ color: "blue" });
-    this.animate().move(150, 150);
+    this.animate().move(0, (8 / 10) * windowHeight);
   });
 }
 
 // Scales the SVG along with the window size.
 function updateSVGSize() {
-  windowWidth = window.innerWidth;
-  windowHeight = window.innerHeight;
+  let windowWidth = window.visualViewport.width;
+  let windowHeight = window.visualViewport.height;
+
   // Remove the previous rectangle and re-render with the new width/height dimensions
   // rect.remove();
   // rect = testSVG

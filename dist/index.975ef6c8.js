@@ -881,8 +881,10 @@ sampledMessages.forEach((message)=>{
 });
 //Get the window width and height every time it's resized (this is a workaround to set the
 // window dimensions using percentages of the window size when the input size only accepts pixels)
-let windowWidth = window.innerWidth;
-let windowHeight = window.innerHeight;
+// let windowWidth = window.innerWidth;
+// let windowHeight = window.innerHeight;
+let windowWidth = window.visualViewport.width;
+let windowHeight = window.visualViewport.height;
 // const testSVG = SVG()
 //   .addTo("body")
 //   .size(windowWidth / 2, windowHeight);
@@ -949,20 +951,20 @@ function renderSVG(windowHeight1, windowWidth1, rtolClass = "min", ttobClass = "
         this.fill({
             color: "blue"
         });
-        this.animate().move(150, 150);
+        this.animate().move(-0.3 * windowWidth1, 0);
     });
     ttobSVG.click(function() {
         console.log("fired");
         this.fill({
             color: "blue"
         });
-        this.animate().move(150, 150);
+        this.animate().move(0, 0.8 * windowHeight1);
     });
 }
 // Scales the SVG along with the window size.
 function updateSVGSize() {
-    windowWidth = window.innerWidth;
-    windowHeight = window.innerHeight;
+    let windowWidth2 = window.visualViewport.width;
+    let windowHeight2 = window.visualViewport.height;
     // Remove the previous rectangle and re-render with the new width/height dimensions
     // rect.remove();
     // rect = testSVG
@@ -981,7 +983,7 @@ function updateSVGSize() {
     ltorSVG.remove();
     ttobSVG.remove();
     rtolSVG.remove();
-    renderSVG(windowHeight, windowWidth, currRTOLClass, currTTOBClass, currLTORClass);
+    renderSVG(windowHeight2, windowWidth2, currRTOLClass, currTTOBClass, currLTORClass);
 }
 // Initial SVG render of the background areas
 renderSVG(windowHeight, windowWidth);

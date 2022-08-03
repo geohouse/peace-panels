@@ -44,7 +44,7 @@ body {
 }
 
 peace-panel {
-  inline-size: 5em;
+  inline-size: 15em;
   overflow-wrap: break-word;
   z-index: 1;
   background-color: #ff0;
