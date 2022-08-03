@@ -183,6 +183,74 @@ const peaceMessages = [
   },
 ];
 
+// Count up the number of LTOR messages
+const sumLTORMessages = peaceMessages.reduce((total, current) => {
+  // console.log(current);
+  if (current.direction === "ltor") {
+    console.log("yes");
+    console.log(total);
+    total += 1;
+  }
+  return total;
+}, 0);
+
+console.log({ sumLTORMessages });
+
+// Number of messages to keep out of the ltor pool, not including english
+let numLTORMessagesToKeep = 9;
+
+// Find the index number of the english entry (map converts the language entries in the objects to an array, then searches
+// for the index of the english entry)
+const indexOfEnglishEntry = peaceMessages
+  .map((object) => {
+    return object.language;
+  })
+  .indexOf("English");
+
+//console.log({ indexOfEnglishEntry });
+
+// There are more messages in ltor than will fix well on a screen. Randomly downsample them here,
+// but keep all of the rtol and ttob messages. Randomly select 7 messages, and always include English for context.
+function downsampleMessages(numLTORMessages, numToKeep) {
+  let downsampleIndexes = [];
+  // Start by adding the index of the english entry
+  downsampleIndexes.push(indexOfEnglishEntry);
+  for (let counter = 0; counter < numToKeep; counter++) {
+    // keeps the entry in the range [0,numLTORMessages]
+    let currEntry = Math.floor(Math.random() * numLTORMessages);
+    console.log({ currEntry });
+    // Ensure there are no duplicate index picks (re-randomize as needed to ensure this is the case)
+    if (downsampleIndexes.includes(currEntry)) {
+      while (downsampleIndexes.includes(currEntry)) {
+        console.log("in while");
+        currEntry = Math.floor(Math.random() * numLTORMessages);
+      }
+    }
+    downsampleIndexes.push(currEntry);
+  }
+
+  console.log({ downsampleIndexes });
+  let sampledMessageHolder = [];
+  let ltorCounter = 0;
+  for (message of peaceMessages) {
+    //console.log(message);
+    if (message.direction === "rtol" || message.direction === "ttob") {
+      sampledMessageHolder.push(message);
+    } else if (message.direction === "ltor") {
+      if (downsampleIndexes.includes(ltorCounter)) {
+        sampledMessageHolder.push(message);
+      }
+      ltorCounter += 1;
+    }
+  }
+  return sampledMessageHolder;
+}
+
+const sampledMessages = downsampleMessages(
+  sumLTORMessages,
+  numLTORMessagesToKeep
+);
+
 class PeacePanel extends LitElement {
   // These are Class properties that are dynamic for Lit (i.e. it listens to changes in them and updates the
   // DOM automatically if they change). The static keyword only refers to the fact that they're defined
@@ -291,7 +359,7 @@ customElements.define("peace-panel", PeacePanel);
 //   document.querySelector(".banner-holder").appendChild(newElement);
 // });
 
-peaceMessages.forEach((message) => {
+sampledMessages.forEach((message) => {
   //console.log(message);
   const newPeacePanel = document.createElement("peace-panel");
   // The name of this property added to the HTML node has to exactly match the name expected
