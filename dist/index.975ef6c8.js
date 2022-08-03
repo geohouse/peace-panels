@@ -898,31 +898,11 @@ let windowHeight = window.visualViewport.height;
 //     .addClass(className));
 // }
 const fullContainer = (0, _svgJs.SVG)().addTo(".banner-holder").size(windowWidth, windowHeight).addClass("full-container");
-// const ttobContainer = SVG()
-//   .addTo(".banner-ttob")
-//   .size(windowWidth, windowHeight)
-//   .addClass("ttob-container");
-// const rtolContainer = SVG()
-//   .addTo(".banner-rtol")
-//   .size(windowWidth, windowHeight)
-//   .addClass("rtol-container");
-// let rect = fullContainer
-//   .polygon(`0,0 100,100 150,150, 150,0 0,0`)
-//   .attr({ fill: "#0f0", class: "svg" });
-// const ttobSVGContainer = makeSVGContainer(
-//   windowWidth,
-//   windowHeight / 2,
-//   "ttob-svg-container"
-// );
-// const ltorSVGContainer = makeSVGContainer(
-//   windowWidth / 2,
-//   windowHeight,
-//   "ltor-svg-container"
-// );
-// let rtolSVG, ttobSVG, ltorSVG;
-// Initialize to undefined
+// Initialize to undefined. This is important in the render functions to tell whether a previous panel render exists or not.
 let rtolSVG, ltorSVG, ttobSVG;
 function renderSVG_full(renderLtor, renderRtol, renderTtob) {
+    // Only render the panels with input parameters of true
+    // All of these panel renders get their second class set to 'max' to indicate they're filling the full screen currently
     //Get the window dimensions to work with
     windowWidth = window.visualViewport.width;
     windowHeight = window.visualViewport.height;
@@ -978,10 +958,13 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
     }
 }
 function renderSVG_side(renderLtor, renderRtol, renderTtob) {
+    // Only render the panels with input parameters of true
+    // All of these panel renders get their second class set to 'min' to indicate they're on the side of the screen currently
     //Get the window dimensions to work with
     windowWidth = window.visualViewport.width;
     windowHeight = window.visualViewport.height;
     if (renderRtol) {
+        // remove the panel if it already exists before re-rendering
         if (rtolSVG != undefined) rtolSVG.remove();
         rtolSVG = fullContainer.polygon(`${-0.3 * windowWidth},0 ${-0.3 * windowWidth},${windowHeight} ${windowWidth / 2 - 0.3 * windowWidth},${windowHeight / 2} ${windowWidth / 2 - 0.3 * windowWidth},0 0,0`).attr({
             fill: "#0f0",
@@ -1057,11 +1040,13 @@ function updateSVGSize(event) {
     // ltorSVG.remove();
     // ttobSVG.remove();
     // rtolSVG.remove();
+    // re-render the full banners as needed
     renderSVG_full(currLTORClass === "max" ? true : false, currRTOLClass === "max" ? true : false, currTTOBClass === "max" ? true : false);
+    // re-Render the banners currently off to the side as needed
     renderSVG_side(currLTORClass === "min" ? true : false, currRTOLClass === "min" ? true : false, currTTOBClass === "min" ? true : false);
 }
-// Initial SVG render of the background areas
-renderSVG_full(windowHeight, windowWidth, true, true, true);
+// Initial SVG render of the background areas to the side
+renderSVG_side(windowHeight, windowWidth, true, true, true);
 // If the window size changes, re-calculate and re-render the background areas so they still fit correctly
 // based on the new screen size.
 window.addEventListener("resize", updateSVGSize); // // Can't use anonymous arrow functions for this callback (likely because it's not passing the correct value of 'this')
