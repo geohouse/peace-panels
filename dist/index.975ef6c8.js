@@ -787,13 +787,13 @@ class PeacePanel extends (0, _lit.LitElement) {
     };
     static styles = (0, _lit.css)`
     .message {
-      color: green;
+      color: #222222;
     }
     .language {
-      color: rebeccapurple;
+      color: #777777;
     }
     p {
-      background-color: hotpink;
+      background-color: bisque;
       text-align: center;
     }
   `;
@@ -909,7 +909,7 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
     if (renderRtol) {
         if (rtolSVG != undefined) rtolSVG.remove();
         rtolSVG = fullContainer.polygon(`0,0 0,${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${windowWidth / 2},0 0,0`).attr({
-            fill: "#0f0",
+            fill: "#DD6B7F",
             class: `rtol-svg max`
         });
         // Set the click event handler to change the class to 'min' and render to the side when clicked
@@ -918,7 +918,7 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
             this.fill({
                 color: "blue"
             });
-            this.animate().move(-0.3 * windowWidth, 0);
+            this.animate().move(-0.2 * windowWidth, 0);
             // this.node.classList[1] = min;
             renderSVG_side(false, true, false);
         });
@@ -926,7 +926,7 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
     if (renderTtob) {
         if (ttobSVG != undefined) ttobSVG.remove();
         ttobSVG = fullContainer.polygon(`0,${windowHeight} ${windowWidth},${windowHeight} ${windowWidth / 2},${windowHeight / 2}`).attr({
-            fill: "#f00",
+            fill: "#FFA500",
             class: `ttob-svg max`
         });
         ttobSVG.click(function() {
@@ -934,14 +934,14 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
             this.fill({
                 color: "blue"
             });
-            this.animate().move(0, 0.8 * windowHeight);
+            this.animate().move(0, 0.7 * windowHeight);
             renderSVG_side(false, false, true);
         });
     }
     if (renderLtor) {
         if (ltorSVG != undefined) ltorSVG.remove();
         ltorSVG = fullContainer.polygon(`${windowWidth},0 ${windowWidth},${windowHeight} ${windowWidth / 2},${windowHeight / 2} ${windowWidth / 2},0`).attr({
-            fill: "#00f",
+            fill: "#54B5FB",
             class: `ltor-svg max`
         });
         console.log(ltorSVG);
@@ -951,7 +951,7 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
             this.fill({
                 color: "blue"
             });
-            this.animate().move(0.8 * windowWidth, 0);
+            this.animate().move(0.7 * windowWidth, 0);
             console.log(this);
             renderSVG_side(true, false, false);
         });
@@ -966,8 +966,8 @@ function renderSVG_side(renderLtor, renderRtol, renderTtob) {
     if (renderRtol) {
         // remove the panel if it already exists before re-rendering
         if (rtolSVG != undefined) rtolSVG.remove();
-        rtolSVG = fullContainer.polygon(`${-0.3 * windowWidth},0 ${-0.3 * windowWidth},${windowHeight} ${windowWidth / 2 - 0.3 * windowWidth},${windowHeight / 2} ${windowWidth / 2 - 0.3 * windowWidth},0 0,0`).attr({
-            fill: "#0f0",
+        rtolSVG = fullContainer.polygon(`${-0.2 * windowWidth},0 ${-0.2 * windowWidth},${windowHeight} ${windowWidth / 2 - 0.2 * windowWidth},${windowHeight / 2} ${windowWidth / 2 - 0.2 * windowWidth},0 0,0`).attr({
+            fill: "#DD6B7F",
             class: `rtol-svg min`
         });
         // Set the click event handler to change the class to 'min' and render to the side when clicked
@@ -984,7 +984,7 @@ function renderSVG_side(renderLtor, renderRtol, renderTtob) {
     if (renderTtob) {
         if (ttobSVG != undefined) ttobSVG.remove();
         ttobSVG = fullContainer.polygon(`0,${windowHeight + 0.1 * windowHeight} ${windowWidth},${windowHeight + 0.1 * windowHeight} ${windowWidth / 2},${0.6 * windowHeight}`).attr({
-            fill: "#f00",
+            fill: "#FFA500",
             class: `ttob-svg min`
         });
         ttobSVG.click(function() {
@@ -998,8 +998,8 @@ function renderSVG_side(renderLtor, renderRtol, renderTtob) {
     }
     if (renderLtor) {
         if (ltorSVG != undefined) ltorSVG.remove();
-        ltorSVG = fullContainer.polygon(`${1.3 * windowWidth},0 ${1.3 * windowWidth},${windowHeight} ${windowWidth / 2 + 0.3 * windowWidth},${windowHeight / 2} ${windowWidth / 2 + 0.3 * windowWidth},0 ${1.3 * windowWidth},0`).attr({
-            fill: "#00f",
+        ltorSVG = fullContainer.polygon(`${1.2 * windowWidth},0 ${1.2 * windowWidth},${windowHeight} ${windowWidth / 2 + 0.2 * windowWidth},${windowHeight / 2} ${windowWidth / 2 + 0.2 * windowWidth},0 ${1.2 * windowWidth},0`).attr({
+            fill: "#54B5FB",
             class: `ltor-svg min`
         });
         console.log(ltorSVG);

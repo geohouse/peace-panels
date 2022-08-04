@@ -14,7 +14,7 @@ body {
 .banner-ttob {
   writing-mode: vertical-rl;
   flex-flow: column wrap;
-  flex: 200px;
+  flex: 0 20px;
   justify-content: flex-end;
   align-self: flex-end;
   align-items: flex-end;
@@ -47,7 +47,7 @@ peace-panel {
   inline-size: 15em;
   overflow-wrap: break-word;
   z-index: 1;
-  background-color: #ff0;
+  background-color: ivory;
   flex: 20px;
 }
 

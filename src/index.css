@@ -15,7 +15,11 @@ body {
 .banner-ttob {
   align-self: flex-end;
   display: flex;
-  flex: 1 200px;
+  /* flex: 0 makes these unable to grow so it gets rid of the problem of very
+  wide ttob column entries that were padding the space to make all 3 banners equal widths.
+  This effectively makes the rtol and ltor banners much wider, but the text entries don't
+  span that entire width, so it gives the output I want. */
+  flex: 0 20px;
   flex-flow: column wrap;
   align-items: flex-end;
   justify-content: flex-end;
@@ -55,7 +59,7 @@ peace-panel {
   justify-content: center;
   */
 
-  background-color: yellow;
+  background-color: ivory;
   /* This z-index call is critical to allow the peace panels to be clickable along with the banners underneath them. */
   z-index: 1;
 }
