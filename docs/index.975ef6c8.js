@@ -745,10 +745,8 @@ function downsampleMessages(numLTORMessages, numToKeep) {
             currEntry
         });
         // Ensure there are no duplicate index picks (re-randomize as needed to ensure this is the case)
-        if (downsampleIndexes.includes(currEntry)) while(downsampleIndexes.includes(currEntry)){
-            console.log("in while");
-            currEntry = Math.floor(Math.random() * numLTORMessages);
-        }
+        if (downsampleIndexes.includes(currEntry)) while(downsampleIndexes.includes(currEntry))//console.log("in while");
+        currEntry = Math.floor(Math.random() * numLTORMessages);
         downsampleIndexes.push(currEntry);
     }
     console.log({
@@ -756,7 +754,7 @@ function downsampleMessages(numLTORMessages, numToKeep) {
     });
     let sampledMessageHolder = [];
     let ltorCounter = 0;
-    for (message of peaceMessages){
+    for (const message of peaceMessages){
         //console.log(message);
         if (message.direction === "rtol" || message.direction === "ttob") sampledMessageHolder.push(message);
         else if (message.direction === "ltor") {

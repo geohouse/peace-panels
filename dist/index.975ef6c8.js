@@ -754,7 +754,7 @@ function downsampleMessages(numLTORMessages, numToKeep) {
     });
     let sampledMessageHolder = [];
     let ltorCounter = 0;
-    for (message of peaceMessages){
+    for (const message of peaceMessages){
         //console.log(message);
         if (message.direction === "rtol" || message.direction === "ttob") sampledMessageHolder.push(message);
         else if (message.direction === "ltor") {
