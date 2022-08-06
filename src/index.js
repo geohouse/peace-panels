@@ -489,6 +489,28 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
       renderSVG_side(true, false, false);
     });
   }
+
+  console.log("testing");
+  console.log(ltorSVG);
+  console.log(ltorSVG.node.classList.contains("max"));
+
+  if (
+    ltorSVG.node.classList.contains("max") &&
+    rtolSVG.node.classList.contains("max") &&
+    ttobSVG.node.classList.contains("max")
+  ) {
+    const peaceSVG = document.createElement("img");
+    // TO RENDER WITH PARCEL, MUST INCLUDE THE REQUIRE STATEMENT AROUND THE IMAGE PATH SO
+    // PARCEL KNOWS TO BUNDLE THE IMAGE WITH THE OTHER SITE ASSETS, OTHERWISE
+    // IMAGE DOESN'T APPEAR AND ONLY GIVES ALT TEXT AND A BROKEN LINK.
+    // https://github.com/parcel-bundler/parcel/issues/3056
+    peaceSVG.src = require("../img/peace-sign-plain.svg");
+    peaceSVG.alt = "Peace symbol";
+    peaceSVG.width = "300px";
+    peaceSVG.height = "150px";
+    console.log(peaceSVG);
+    document.body.appendChild(peaceSVG);
+  }
 }
 
 function renderSVG_side(renderLtor, renderRtol, renderTtob) {

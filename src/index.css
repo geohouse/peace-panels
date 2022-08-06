@@ -1,5 +1,5 @@
 body {
-  color: red;
+  color: darkblue;
   font-family: sans-serif;
 }
 
@@ -77,11 +77,13 @@ peace-panel {
   right: 0px;
 }
 
-/* svg {
-  position: fixed;
-  top: 500px;
-  left: 600px;
-} */
+img {
+  position: absolute;
+  top: 200px;
+  left: 300px;
+  width: 150px;
+  height: 150px;
+}
 
 .full-container {
   position: fixed;

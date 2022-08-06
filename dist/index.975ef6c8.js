@@ -954,6 +954,22 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
             renderSVG_side(true, false, false);
         });
     }
+    console.log("testing");
+    console.log(ltorSVG);
+    console.log(ltorSVG.node.classList.contains("max"));
+    if (ltorSVG.node.classList.contains("max") && rtolSVG.node.classList.contains("max") && ttobSVG.node.classList.contains("max")) {
+        const peaceSVG = document.createElement("img");
+        // TO RENDER WITH PARCEL, MUST INCLUDE THE REQUIRE STATEMENT AROUND THE IMAGE PATH SO
+        // PARCEL KNOWS TO BUNDLE THE IMAGE WITH THE OTHER SITE ASSETS, OTHERWISE
+        // IMAGE DOESN'T APPEAR AND ONLY GIVES ALT TEXT AND A BROKEN LINK.
+        // https://github.com/parcel-bundler/parcel/issues/3056
+        peaceSVG.src = require("../img/peace-sign-plain.svg");
+        peaceSVG.alt = "Peace symbol";
+        peaceSVG.width = "300px";
+        peaceSVG.height = "150px";
+        console.log(peaceSVG);
+        document.body.appendChild(peaceSVG);
+    }
 }
 function renderSVG_side(renderLtor, renderRtol, renderTtob) {
     // Only render the panels with input parameters of true
@@ -1056,7 +1072,7 @@ window.addEventListener("resize", updateSVGSize); // // Can't use anonymous arro
  //   console.log("Clicked!");
  // });
 
-},{"lit":"4antt","@svgdotjs/svg.js":"9S56O"}],"4antt":[function(require,module,exports) {
+},{"lit":"4antt","@svgdotjs/svg.js":"9S56O","../img/peace-sign-plain.svg":"agOyx"}],"4antt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _reactiveElement = require("@lit/reactive-element");
@@ -7265,6 +7281,43 @@ registerMorphableType([
 ]);
 makeMorphable();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["ShInH","8lqZg"], "8lqZg", "parcelRequire6a61")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"agOyx":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("bLxZJ") + "peace-sign-plain.6dc3477d.svg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}]},["ShInH","8lqZg"], "8lqZg", "parcelRequire6a61")
 
 //# sourceMappingURL=index.975ef6c8.js.map
