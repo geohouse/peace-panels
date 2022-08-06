@@ -507,9 +507,14 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
     peaceSVG.src = require("../img/peace-sign-plain.svg");
     peaceSVG.alt = "Peace symbol";
     peaceSVG.width = "300px";
-    peaceSVG.height = "150px";
+    peaceSVG.height = "300px";
+    peaceSVG.className = "peace-svg";
     console.log(peaceSVG);
     document.body.appendChild(peaceSVG);
+    const peaceSVGRendered = document.querySelector(".peace-svg");
+    peaceSVGRendered.style.top = `${windowHeight / 2}px`;
+    peaceSVGRendered.style.left = `${windowWidth / 2}px`;
+    peaceSVGRendered.style.position = "absolute";
   }
 }
 

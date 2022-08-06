@@ -77,18 +77,18 @@ peace-panel {
   right: 0px;
 }
 
-img {
+/* img {
   position: absolute;
   top: 200px;
   left: 300px;
   width: 150px;
   height: 150px;
-}
+} */
 
 .full-container {
   position: fixed;
-  /* top: 0px;
-  right: 0px; */
+  top: 0px;
+  right: 0px;
   /* This z-index is critical to keep the banners underneath the peace-panel elements, but to make both of them clickable.*/
   z-index: 0;
 }

@@ -59,17 +59,11 @@ peace-panel {
   right: 0;
 }
 
-img {
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  top: 200px;
-  left: 300px;
-}
-
 .full-container {
   z-index: 0;
   position: fixed;
+  top: 0;
+  right: 0;
 }
 
 .rtol-svg-container {
