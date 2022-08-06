@@ -883,6 +883,8 @@ sampledMessages.forEach((message)=>{
 // let windowHeight = window.innerHeight;
 let windowWidth = window.visualViewport.width;
 let windowHeight = window.visualViewport.height;
+// Set the width and height of the rendered peace sign when all of the panels are closed. In pixels.
+const peaceSignWidthHeight = 200;
 // const testSVG = SVG()
 //   .addTo("body")
 //   .size(windowWidth / 2, windowHeight);
@@ -965,15 +967,17 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
         // https://github.com/parcel-bundler/parcel/issues/3056
         peaceSVG.src = require("../img/peace-sign-plain.svg");
         peaceSVG.alt = "Peace symbol";
-        peaceSVG.width = "300px";
-        peaceSVG.height = "300px";
         peaceSVG.className = "peace-svg";
         console.log(peaceSVG);
         document.body.appendChild(peaceSVG);
         const peaceSVGRendered = document.querySelector(".peace-svg");
-        peaceSVGRendered.style.top = `${windowHeight / 2}px`;
-        peaceSVGRendered.style.left = `${windowWidth / 2}px`;
+        // This is the position of the top of the peace sign, so need to offset based on its width/height
+        // to center it at the intersection of the panels.
+        peaceSVGRendered.style.top = `${windowHeight / 2 - peaceSignWidthHeight / 2}px`;
+        peaceSVGRendered.style.left = `${windowWidth / 2 - peaceSignWidthHeight / 2}px`;
         peaceSVGRendered.style.position = "absolute";
+        peaceSVGRendered.style.width = `${peaceSignWidthHeight}px`;
+        peaceSVGRendered.style.height = `${peaceSignWidthHeight}px`;
     }
 }
 function renderSVG_side(renderLtor, renderRtol, renderTtob) {
