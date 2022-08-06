@@ -77,6 +77,12 @@ peace-panel {
   right: 0px;
 }
 
+/* svg {
+  position: fixed;
+  top: 500px;
+  left: 600px;
+} */
+
 .full-container {
   position: fixed;
   /* top: 0px;
