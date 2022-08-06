@@ -87,8 +87,11 @@ peace-panel {
 
 .full-container {
   position: fixed;
-  top: 0px;
-  right: 0px;
+
+  /* When these margins are removed, the peace sign can be exactly centered,
+  but it breaks the re-scaling of the underlying panels on window re-size.  */
+  /* top: 0px;
+  right: 0px; */
   /* This z-index is critical to keep the banners underneath the peace-panel elements, but to make both of them clickable.*/
   z-index: 0;
 }

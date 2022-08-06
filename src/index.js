@@ -501,6 +501,11 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
     rtolSVG.node.classList.contains("max") &&
     ttobSVG.node.classList.contains("max")
   ) {
+    // Clear any previous peace sign element that exists
+    if (document.querySelector(".peace-svg")) {
+      document.querySelector(".peace-svg").remove();
+    }
+
     const peaceSVG = document.createElement("img");
     // TO RENDER WITH PARCEL, MUST INCLUDE THE REQUIRE STATEMENT AROUND THE IMAGE PATH SO
     // PARCEL KNOWS TO BUNDLE THE IMAGE WITH THE OTHER SITE ASSETS, OTHERWISE
@@ -511,14 +516,20 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
     peaceSVG.className = "peace-svg";
     console.log(peaceSVG);
     document.body.appendChild(peaceSVG);
+    // Now need to apply dynamic layout styling to the peace sign.
     const peaceSVGRendered = document.querySelector(".peace-svg");
     // This is the position of the top of the peace sign, so need to offset based on its width/height
     // to center it at the intersection of the panels.
+    // Adding back the windowHeight/200, windowWidth/200 factors is to dynamically offset the
+    //'auto' margin for the top and right of the panel holder that otherwise prevents the peace sign
+    // from being rendered exactly in the center of the screen. This seems to work well as a work-around.
+    // The fix is to set the top and right positions to 0px, but then this breaks the ability to re-scale
+    // the panels dynamically as the window size is changed.
     peaceSVGRendered.style.top = `${
-      windowHeight / 2 - peaceSignWidthHeight / 2
+      windowHeight / 2 - peaceSignWidthHeight / 2 + windowHeight / 200
     }px`;
     peaceSVGRendered.style.left = `${
-      windowWidth / 2 - peaceSignWidthHeight / 2
+      windowWidth / 2 - peaceSignWidthHeight / 2 + windowWidth / 200
     }px`;
     peaceSVGRendered.style.position = "absolute";
     peaceSVGRendered.style.width = `${peaceSignWidthHeight}px`;
