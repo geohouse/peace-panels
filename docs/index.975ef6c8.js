@@ -783,7 +783,7 @@ function shuffleArray(inputMessageArray) {
     return shuffledOutput;
 }
 // Shuffle all of the messages so they appear in a different order each time.
-sampledMessagesShuffled = shuffleArray(sampledMessages);
+const sampledMessagesShuffled = shuffleArray(sampledMessages);
 class PeacePanel extends (0, _lit.LitElement) {
     // These are Class properties that are dynamic for Lit (i.e. it listens to changes in them and updates the
     // DOM automatically if they change). The static keyword only refers to the fact that they're defined
