@@ -1,5 +1,5 @@
 body {
-  color: red;
+  color: #00008b;
   font-family: sans-serif;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 peace-panel {
-  inline-size: 15em;
+  inline-size: 20em;
   overflow-wrap: break-word;
   z-index: 1;
   background-color: ivory;

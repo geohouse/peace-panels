@@ -765,6 +765,25 @@ function downsampleMessages(numLTORMessages, numToKeep) {
     return sampledMessageHolder;
 }
 const sampledMessages = downsampleMessages(sumLTORMessages, numLTORMessagesToKeep);
+function shuffleArray(inputMessageArray) {
+    const shuffledOutput = [];
+    let cutIndex = 0;
+    // Shuffle by iterating through array, splicing out a random element (by index value) each time to add to the
+    // output holder
+    while(inputMessageArray.length > 0){
+        //console.log(inputMessageArray.length);
+        cutIndex = Math.floor(Math.random() * inputMessageArray.length);
+        //console.log({ cutIndex });
+        // splice returns a list of the removed element, so need to index into the list
+        // to access the number before pushing to the output array.
+        const removed = inputMessageArray.splice(cutIndex, 1)[0];
+        //console.log({ removed });
+        shuffledOutput.push(removed);
+    }
+    return shuffledOutput;
+}
+// Shuffle all of the messages so they appear in a different order each time.
+sampledMessagesShuffled = shuffleArray(sampledMessages);
 class PeacePanel extends (0, _lit.LitElement) {
     // These are Class properties that are dynamic for Lit (i.e. it listens to changes in them and updates the
     // DOM automatically if they change). The static keyword only refers to the fact that they're defined
@@ -804,6 +823,15 @@ class PeacePanel extends (0, _lit.LitElement) {
     //     //this.messageDetails = inputObject;
     //     console.log(this);
     //   }
+    // Toggle whether the displayMessage property is set to true/false.
+    toggleMessage() {
+        //console.log("in toggle");
+        //console.log(this.messageDetails);
+        // Toggle the boolean and re-assign
+        this.messageDetails.displayMessage = !this.messageDetails.displayMessage;
+        //console.log(this.messageDetails.displayMessage);
+        this.requestUpdate();
+    }
     render() {
         //console.log("in render");
         //console.log(this.messageDetails.language);
@@ -819,15 +847,6 @@ class PeacePanel extends (0, _lit.LitElement) {
         ${this.messageDetails.displayMessage ? this.messageDetails.message : this.messageDetails.language}
       </p>
     `;
-    }
-    // Toggle whether the displayMessage property is set to true/false.
-    toggleMessage() {
-        //console.log("in toggle");
-        //console.log(this.messageDetails);
-        // Toggle the boolean and re-assign
-        this.messageDetails.displayMessage = !this.messageDetails.displayMessage;
-        //console.log(this.messageDetails.displayMessage);
-        this.requestUpdate();
     }
 }
 customElements.define("peace-panel", PeacePanel);
@@ -859,7 +878,7 @@ customElements.define("peace-panel", PeacePanel);
 //   const newElement = document.createElement("simple-greeting");
 //   document.querySelector(".banner-holder").appendChild(newElement);
 // });
-sampledMessages.forEach((message)=>{
+sampledMessagesShuffled.forEach((message)=>{
     //console.log(message);
     const newPeacePanel = document.createElement("peace-panel");
     // The name of this property added to the HTML node has to exactly match the name expected
@@ -870,7 +889,7 @@ sampledMessages.forEach((message)=>{
     // ones with the names matching those expected from the properties definition of the class will
     // be available for use with the Lit web component.
     newPeacePanel.messageDetails = message;
-    newPeacePanel.tester = "Gussy!";
+    // newPeacePanel.tester = "Gussy!";
     //console.log("in setting up");
     //console.log(newPeacePanel.messageDetails);
     if (message.direction === "ttob") document.querySelector(".banner-ttob").appendChild(newPeacePanel);
@@ -883,6 +902,8 @@ sampledMessages.forEach((message)=>{
 // let windowHeight = window.innerHeight;
 let windowWidth = window.visualViewport.width;
 let windowHeight = window.visualViewport.height;
+// Set the width and height of the rendered peace sign when all of the panels are closed. In pixels.
+const peaceSignWidthHeight = 200;
 // const testSVG = SVG()
 //   .addTo("body")
 //   .size(windowWidth / 2, windowHeight);
@@ -954,6 +975,38 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
             renderSVG_side(true, false, false);
         });
     }
+    console.log("testing");
+    console.log(ltorSVG);
+    console.log(ltorSVG.node.classList.contains("max"));
+    // Clear any previous peace sign element that exists. This prevents rendering additional images
+    // if one panel is minimized then maximized again (with the other panels maximized)
+    if (document.querySelector(".peace-svg")) document.querySelector(".peace-svg").remove();
+    if (ltorSVG.node.classList.contains("max") && rtolSVG.node.classList.contains("max") && ttobSVG.node.classList.contains("max")) {
+        const peaceSVG = document.createElement("img");
+        // TO RENDER WITH PARCEL, MUST INCLUDE THE REQUIRE STATEMENT AROUND THE IMAGE PATH SO
+        // PARCEL KNOWS TO BUNDLE THE IMAGE WITH THE OTHER SITE ASSETS, OTHERWISE
+        // IMAGE DOESN'T APPEAR AND ONLY GIVES ALT TEXT AND A BROKEN LINK.
+        // https://github.com/parcel-bundler/parcel/issues/3056
+        peaceSVG.src = require("../img/peace-sign-plain.svg");
+        peaceSVG.alt = "Peace symbol";
+        peaceSVG.className = "peace-svg";
+        console.log(peaceSVG);
+        document.body.appendChild(peaceSVG);
+        // Now need to apply dynamic layout styling to the peace sign.
+        const peaceSVGRendered = document.querySelector(".peace-svg");
+        // This is the position of the top of the peace sign, so need to offset based on its width/height
+        // to center it at the intersection of the panels.
+        // Adding back the windowHeight/200, windowWidth/200 factors is to dynamically offset the
+        //'auto' margin for the top and right of the panel holder that otherwise prevents the peace sign
+        // from being rendered exactly in the center of the screen. This seems to work well as a work-around.
+        // The fix is to set the top and right positions to 0px, but then this breaks the ability to re-scale
+        // the panels dynamically as the window size is changed.
+        peaceSVGRendered.style.top = `${windowHeight / 2 - peaceSignWidthHeight / 2 + windowHeight / 200}px`;
+        peaceSVGRendered.style.left = `${windowWidth / 2 - peaceSignWidthHeight / 2 + windowWidth / 200}px`;
+        peaceSVGRendered.style.position = "absolute";
+        peaceSVGRendered.style.width = `${peaceSignWidthHeight}px`;
+        peaceSVGRendered.style.height = `${peaceSignWidthHeight}px`;
+    }
 }
 function renderSVG_side(renderLtor, renderRtol, renderTtob) {
     // Only render the panels with input parameters of true
@@ -1012,6 +1065,11 @@ function renderSVG_side(renderLtor, renderRtol, renderTtob) {
             renderSVG_full(true, false, false);
         });
     }
+    // Clear the peace sign once all panels are minimized
+    if (ltorSVG.node.classList.contains("min") && rtolSVG.node.classList.contains("min") && ttobSVG.node.classList.contains("min")) // Clear any previous peace sign element that exists
+    {
+        if (document.querySelector(".peace-svg")) document.querySelector(".peace-svg").remove();
+    }
 }
 // Scales the SVG along with the window size.
 function updateSVGSize(event) {
@@ -1056,7 +1114,7 @@ window.addEventListener("resize", updateSVGSize); // // Can't use anonymous arro
  //   console.log("Clicked!");
  // });
 
-},{"lit":"4antt","@svgdotjs/svg.js":"9S56O"}],"4antt":[function(require,module,exports) {
+},{"lit":"4antt","@svgdotjs/svg.js":"9S56O","../img/peace-sign-plain.svg":"agOyx"}],"4antt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _reactiveElement = require("@lit/reactive-element");
@@ -7265,6 +7323,43 @@ registerMorphableType([
 ]);
 makeMorphable();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["ShInH","8lqZg"], "8lqZg", "parcelRequire6a61")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"agOyx":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("bLxZJ") + "peace-sign-plain.6dc3477d.svg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}]},["ShInH","8lqZg"], "8lqZg", "parcelRequire6a61")
 
 //# sourceMappingURL=index.975ef6c8.js.map
