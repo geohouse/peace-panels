@@ -51,7 +51,7 @@ body {
 peace-panel {
   flex: 1 20px;
   /* This sets the length of the lines for the peace panel text, and wraps around words.*/
-  inline-size: 15em;
+  inline-size: 20em;
   overflow-wrap: break-word;
   /*
   display: flex;

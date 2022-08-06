@@ -765,6 +765,25 @@ function downsampleMessages(numLTORMessages, numToKeep) {
     return sampledMessageHolder;
 }
 const sampledMessages = downsampleMessages(sumLTORMessages, numLTORMessagesToKeep);
+function shuffleArray(inputMessageArray) {
+    const shuffledOutput = [];
+    let cutIndex = 0;
+    // Shuffle by iterating through array, splicing out a random element (by index value) each time to add to the
+    // output holder
+    while(inputMessageArray.length > 0){
+        //console.log(inputMessageArray.length);
+        cutIndex = Math.floor(Math.random() * inputMessageArray.length);
+        //console.log({ cutIndex });
+        // splice returns a list of the removed element, so need to index into the list
+        // to access the number before pushing to the output array.
+        const removed = inputMessageArray.splice(cutIndex, 1)[0];
+        //console.log({ removed });
+        shuffledOutput.push(removed);
+    }
+    return shuffledOutput;
+}
+// Shuffle all of the messages so they appear in a different order each time.
+sampledMessagesShuffled = shuffleArray(sampledMessages);
 class PeacePanel extends (0, _lit.LitElement) {
     // These are Class properties that are dynamic for Lit (i.e. it listens to changes in them and updates the
     // DOM automatically if they change). The static keyword only refers to the fact that they're defined
@@ -804,6 +823,15 @@ class PeacePanel extends (0, _lit.LitElement) {
     //     //this.messageDetails = inputObject;
     //     console.log(this);
     //   }
+    // Toggle whether the displayMessage property is set to true/false.
+    toggleMessage() {
+        //console.log("in toggle");
+        //console.log(this.messageDetails);
+        // Toggle the boolean and re-assign
+        this.messageDetails.displayMessage = !this.messageDetails.displayMessage;
+        //console.log(this.messageDetails.displayMessage);
+        this.requestUpdate();
+    }
     render() {
         //console.log("in render");
         //console.log(this.messageDetails.language);
@@ -819,15 +847,6 @@ class PeacePanel extends (0, _lit.LitElement) {
         ${this.messageDetails.displayMessage ? this.messageDetails.message : this.messageDetails.language}
       </p>
     `;
-    }
-    // Toggle whether the displayMessage property is set to true/false.
-    toggleMessage() {
-        //console.log("in toggle");
-        //console.log(this.messageDetails);
-        // Toggle the boolean and re-assign
-        this.messageDetails.displayMessage = !this.messageDetails.displayMessage;
-        //console.log(this.messageDetails.displayMessage);
-        this.requestUpdate();
     }
 }
 customElements.define("peace-panel", PeacePanel);
@@ -859,7 +878,7 @@ customElements.define("peace-panel", PeacePanel);
 //   const newElement = document.createElement("simple-greeting");
 //   document.querySelector(".banner-holder").appendChild(newElement);
 // });
-sampledMessages.forEach((message)=>{
+sampledMessagesShuffled.forEach((message)=>{
     //console.log(message);
     const newPeacePanel = document.createElement("peace-panel");
     // The name of this property added to the HTML node has to exactly match the name expected
@@ -870,7 +889,7 @@ sampledMessages.forEach((message)=>{
     // ones with the names matching those expected from the properties definition of the class will
     // be available for use with the Lit web component.
     newPeacePanel.messageDetails = message;
-    newPeacePanel.tester = "Gussy!";
+    // newPeacePanel.tester = "Gussy!";
     //console.log("in setting up");
     //console.log(newPeacePanel.messageDetails);
     if (message.direction === "ttob") document.querySelector(".banner-ttob").appendChild(newPeacePanel);
@@ -959,9 +978,10 @@ function renderSVG_full(renderLtor, renderRtol, renderTtob) {
     console.log("testing");
     console.log(ltorSVG);
     console.log(ltorSVG.node.classList.contains("max"));
+    // Clear any previous peace sign element that exists. This prevents rendering additional images
+    // if one panel is minimized then maximized again (with the other panels maximized)
+    if (document.querySelector(".peace-svg")) document.querySelector(".peace-svg").remove();
     if (ltorSVG.node.classList.contains("max") && rtolSVG.node.classList.contains("max") && ttobSVG.node.classList.contains("max")) {
-        // Clear any previous peace sign element that exists
-        if (document.querySelector(".peace-svg")) document.querySelector(".peace-svg").remove();
         const peaceSVG = document.createElement("img");
         // TO RENDER WITH PARCEL, MUST INCLUDE THE REQUIRE STATEMENT AROUND THE IMAGE PATH SO
         // PARCEL KNOWS TO BUNDLE THE IMAGE WITH THE OTHER SITE ASSETS, OTHERWISE
@@ -1044,6 +1064,11 @@ function renderSVG_side(renderLtor, renderRtol, renderTtob) {
             console.log(this);
             renderSVG_full(true, false, false);
         });
+    }
+    // Clear the peace sign once all panels are minimized
+    if (ltorSVG.node.classList.contains("min") && rtolSVG.node.classList.contains("min") && ttobSVG.node.classList.contains("min")) // Clear any previous peace sign element that exists
+    {
+        if (document.querySelector(".peace-svg")) document.querySelector(".peace-svg").remove();
     }
 }
 // Scales the SVG along with the window size.
