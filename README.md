@@ -7,4 +7,5 @@ Skills used:
 - Creating, deleting, and moving SVG shapes with the [SVG library](https://svgjs.dev/docs/3.0/)
 - 2-phase reactive animations that dynamically fill changing screen sizes
 - Layout with flexbox and z-index for overlap
+- Built using [Parcel](https://parceljs.org/)
 
